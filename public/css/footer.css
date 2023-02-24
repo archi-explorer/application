@@ -1,0 +1,149 @@
+/*************/
+/* FOOTER */
+/*************/
+
+footer {
+  background-color: #1d3042;
+  border-bottom: 5px solid #4dc1ed;
+  text-align: center;
+  width: 100%;
+  height: 10%;
+  bottom: 0%;
+  position: absolute;
+  color: white;
+}
+
+.footerContainer {
+  background-color: transparent;
+  margin: 5px;
+  display: inline;
+  position: fixed;
+  text-align: center;
+  align-items: center;
+  height: 10%;
+  width: 90%;
+  bottom: 0%;
+  left: 5%;
+  border-top: 1px solid white;
+}
+
+.footerLeft {
+  text-align: center;
+  align-items: center;
+  position: absolute;
+  color: white;
+  left: 0%;
+  top: 10%;
+  height: 80%;
+  width: 20%;
+  background-image: url("../images/LogoCabinet.png");
+  background-size: contain;
+  background-position: left;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.footerCenter {
+  background-color: transparent;
+  display: inline-block;
+  text-align: center;
+  align-items: center;
+  position: fixed;
+  color: white;
+  height: 100%;
+  width: 50%;
+  left: 25%;
+}
+
+.RenvoisPageHTML {
+  display: flex;
+  color: white;
+  text-align: center;
+  align-items: center;
+  top: 20%;
+}
+
+.footerRight {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  color: white;
+  right: 0%;
+  height: 100%;
+  width: 20%;
+}
+
+#faceBook {
+  /* position: absolute; */
+  height: 50%;
+  width: 15%;
+  /* margin: 5px; */
+  background-image: url("../images/icones/IconeLienPagefacebook.png");
+  background-size: contain;
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+#instagram {
+  /* position: absolute; */
+  height: 50%;
+  width: 15%;
+  background-image: url("../images/icones/IconeLienPageInstagram.png");
+  background-size: contain;
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+#linkedIn {
+  /* position: absolute; */
+  height: 50%;
+  width: 15%;
+  background-image: url("../images/icones/IconeLienPageLinkedin.png");
+  background-size: contain;
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+#PageMentionsLegales {
+  position: fixed;
+  top: 95%;
+  left: 38.4%;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#PagePolitiqueConfidentialite {
+  position: fixed;
+  top: 95%;
+  left: 45.7%;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#PageContact {
+  position: fixed;
+  top: 95%;
+  left: 56.3%;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#PageMentionsLegales:hover {
+  color: #4dc1ed;
+}
+
+#PagePolitiqueConfidentialite:hover {
+  color: #4dc1ed;
+}
+
+#PageContact:hover {
+  color: #4dc1ed;
+}

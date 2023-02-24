@@ -1,0 +1,336 @@
+/*** BODY ***/
+
+body {
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  font-size: 12px;
+  font-family: Sans-Serif;
+  color: #162636;
+}
+
+.scene-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #162636;
+  cursor: default;
+  z-index: -100;
+}
+
+/*
+h1 {
+	background-color: transparent;
+	margin: 0 0 0 0 ;
+	padding: 10px 0 0 0; 
+}*/
+
+.guiContainer {
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  z-index: 1; /*permet d'avoir un affichage prioritaire de l'objet - on s'assure ainsi que l'interface graphique qui gère la visibilité des modèles s'affiche au dessus du reste de la scène et ne soit pas caché par un modèle lors de sa manipulation par exemple*/
+}
+
+/*************/
+/* LOADER */
+/*************/
+
+.loader {
+  position: absolute;
+  z-index: -100;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1c2a38;
+  visibility: visible;
+  cursor: wait;
+}
+
+/***************/
+/* TOLS */
+/***************/
+
+.tools {
+  background-color: #162636;
+  border-radius: 10px;
+  width: 300px;
+  height: 60px;
+  position: absolute;
+  bottom: 12%;
+  left: 5%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+  visibility: visible;
+}
+
+.tools a {
+  background-color: #1d3042;
+  border-radius: 10px;
+  background-position: center;
+  background-repeat: no-repeat;
+  visibility: visible;
+  cursor: pointer;
+}
+
+.navigationMode {
+  height: 50px;
+  width: 50px;
+  background-image: url("./images/tools/VueDollhouse.png"); /*Insertion de l'image sur le fond de la zone*/
+  background-size: 90%; /*Apparence du curseur lors du survol de l'icône avec la souris*/
+}
+
+.overView {
+  height: 50px;
+  width: 50px;
+  background-image: url("./images/tools/VueDessus.png");
+  background-size: 130%;
+}
+
+.mesure {
+  height: 50px;
+  width: 50px;
+  background-image: url("./images/tools/ModeMesure.png");
+  background-size: 110%;
+}
+
+.mesureLabel {
+  font-family: monospace;
+  background-color: black;
+  color: white;
+}
+
+.virtualVisit {
+  height: 50px;
+  width: 50px;
+  background-image: url("./images/tools/ModeVisiteVirtuelle.png");
+  background-size: 140%;
+}
+
+.fullScreen {
+  height: 50px;
+  width: 50px;
+  background-image: url("./images/tools/PleinEcran.png");
+  background-size: 130%;
+}
+
+.closeMesure {
+  position: fixed;
+  top: 15%;
+  right: 5%;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 200%;
+  background-color: transparent;
+  color: #4dc1ed;
+  font-weight: bold; /*écriture en gras*/
+  z-index: 1;
+  visibility: hidden; /*Objet non visible par défaut pour l'utilisateur, sa visibilité est activée depuis le JavaScript uniquement quand l'utilisateur entre dans le mode mesure*/
+}
+
+.closeMesure:hover {
+  color: #00b1bf; /*Changement de la couleur de l'écriture lors de son survol avec la souris*/
+}
+
+.clearMesure {
+  position: fixed;
+  top: 25%;
+  right: 5%;
+  text-align: center;
+  background-color: #1d3042;
+  border: 2px solid #4dc1ed;
+  color: white;
+  font-size: 1.5em;
+  border-radius: 10px;
+  width: 200px;
+  cursor: pointer;
+  visibility: hidden; /*Objet non visible par défaut pour l'utilisateur, sa visibilité est activée depuis le JavaScript uniquement quand l'utilisateur entre dans le mode mesure*/
+}
+
+.clearMesure:hover {
+  background-color: #4dc1ed;
+}
+
+/******************/
+/* HELPER */
+/******************/
+
+.helpLink {
+  background-color: #162636;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 12%;
+  right: 5%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.helpLink > span {
+  position: fixed;
+  /* background-size: 70%;
+  background-position: center;
+  background-repeat: no-repeat; */
+  font-size: 48px;
+  font-variation-settings: "OPSZ" 48;
+  color: white;
+  visibility: visible;
+  cursor: pointer;
+}
+
+.helpPage {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #1d3042;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.helpContainer {
+  position: fixed;
+  width: 762px;
+  height: 70%;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 35px;
+  top: 15%;
+  margin: auto;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.leftColumn {
+  float: left;
+  text-align: center;
+  background-color: transparent;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.topLeft {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20%;
+  background: transparent;
+  color: white;
+  top: 10%;
+}
+
+.midleTopLeft {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20%;
+  background: transparent;
+  color: white;
+  top: 10%;
+}
+
+.midleBottomLeft {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20%;
+  background: transparent;
+  color: white;
+  top: 10%;
+}
+
+.bottomLeft {
+  display: block;
+  position: relative;
+  width: auto;
+  height: 20%;
+  background: transparent;
+  color: white;
+  text-align: center;
+  top: 10%;
+}
+
+.rightColumn {
+  float: right;
+  text-align: center;
+  background-color: transparent;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.topRight {
+  position: relative;
+  top: 3.8%;
+  display: block;
+  width: auto;
+  height: 20%;
+  color: white;
+  background-color: transparent;
+}
+
+.midleTopRight {
+  position: relative;
+  top: 3.8%;
+  display: block;
+  width: auto;
+  height: 20%;
+  color: white;
+  background-color: transparent;
+}
+
+.midleBottomRight {
+  position: relative;
+  top: 3.8%;
+  display: block;
+  width: auto;
+  height: 20%;
+  color: white;
+  background-color: transparent;
+}
+
+.bottomRight {
+  position: relative;
+  top: 3.8%;
+  display: block;
+  width: auto;
+  height: 20%;
+  color: white;
+  background-color: transparent;
+}
+
+.helpContainer img {
+  position: relative;
+  width: 251px;
+  height: 55px;
+  top: 25%;
+}
+
+.closeHelp #closeHelper {
+  position: relative;
+  left: 40%;
+  top: 40%;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/*************************/
+/* Classe permet de cacher un élément */
+/*************************/
+.hideElement {
+  display: none;
+}
