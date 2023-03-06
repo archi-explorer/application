@@ -4,7 +4,7 @@
  * Module d'initialisation du modèle à afficher
  */
 
-const request = "http://archi-test.com/server";
+const request = "http://archi-test.com/";
 
 class RequestModelSet {
   _model;
@@ -15,7 +15,7 @@ class RequestModelSet {
 
   async setModel() {
     try {
-      const req = new Request(`${request}index.php`);
+      const req = new Request(`${request}set-model`);
       const response = await fetch(req, {
         method: "POST",
         headers: {

@@ -1,6 +1,6 @@
 "use-strict";
 
-const request = "http://archi-test.com/server";
+const request = "http://archi-test.com/";
 
 class RequestModelList {
   _modelUploader;
@@ -17,7 +17,7 @@ class RequestModelList {
 
   async getModel() {
     try {
-      const req = new Request(`${request}get_model.php`);
+      const req = new Request(`${request}get-model`);
       const response = await fetch(req);
       const data = await response.json();
       return data;
@@ -26,53 +26,53 @@ class RequestModelList {
     }
   }
 
-  async addModel(city, role) {
-    try {
-      console.log("start upload");
+  // async addModel(city, role) {
+  //   try {
+  //     console.log("start upload");
 
-      if (!this.verifFolderName()) {
-        return false;
-      }
+  //     if (!this.verifFolderName()) {
+  //       return false;
+  //     }
 
-      console.log("passed");
+  //     console.log("passed");
 
-      console.log(this._modelUploader.files[0].name);
+  //     console.log(this._modelUploader.files[0].name);
 
-      try {
-        await this.setFolder("model");
-        this._modelUploader.start();
+  //     try {
+  //       await this.setFolder("model");
+  //       this._modelUploader.start();
 
-        await this.setFolder("panoramas");
-        this._panoUploader.start();
+  //       await this.setFolder("panoramas");
+  //       this._panoUploader.start();
 
-        await this.setFolder("coord");
-        this._csvUploader.start();
-      } catch (error) {
-        console.log(error.message);
-        return false;
-      }
+  //       await this.setFolder("coord");
+  //       this._csvUploader.start();
+  //     } catch (error) {
+  //       console.log(error.message);
+  //       return false;
+  //     }
 
-      // Ajout au CSV de la liste
-      const name = this._modelUploader.files[0].name.replace(/\.[^/.]+$/, "");
+  //     // Ajout au CSV de la liste
+  //     const name = this._modelUploader.files[0].name.replace(/\.[^/.]+$/, "");
 
-      const req = new Request(`${request}add_model.php`);
-      const response = await fetch(req, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        },
-        body: `city=${encodeURIComponent(city)}&mname=${encodeURIComponent(
-          name
-        )}&role=${encodeURIComponent(role)}`,
-      });
+  //     const req = new Request(`${request}add-model`);
+  //     const response = await fetch(req, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+  //       },
+  //       body: `city=${encodeURIComponent(city)}&mname=${encodeURIComponent(
+  //         name
+  //       )}&role=${encodeURIComponent(role)}`,
+  //     });
 
-      return true;
-      // location.reload();
-    } catch (error) {
-      console.log(error.message);
-      return false;
-    }
-  }
+  //     return true;
+  //     // location.reload();
+  //   } catch (error) {
+  //     console.log(error.message);
+  //     return false;
+  //   }
+  // }
 
   initUploader(btn, list) {
     const uploader = new plupload.Uploader({
@@ -128,7 +128,7 @@ class RequestModelList {
   }
 
   async setFolder(folder) {
-    const req = new Request(`${request}set_folder.php`);
+    const req = new Request(`${request}set-folder`);
     const response = await fetch(req, {
       method: "POST",
       headers: {

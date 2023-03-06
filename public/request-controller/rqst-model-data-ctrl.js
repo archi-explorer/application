@@ -4,7 +4,7 @@
  * Module de gestion des requêtes à l'API NodeJs
  */
 
-const request = "http://archi-test.com/server";
+const request = "http://archi-test.com/";
 
 // const modelName = getModelName();
 
