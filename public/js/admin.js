@@ -1,7 +1,7 @@
 "use-strict";
 
 import * as MODEL_LIST from "../request-controller/rqst-model-list-ctrl";
-import * as AUTH from "../request-controller/rqst-authenticate-ctrl.js";
+import * as AUTH from "../request-controller/rqst-user-ctrl";
 
 /**
  * Génération de l'interface

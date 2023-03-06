@@ -26,4 +26,5 @@ $route->map('PUT', '/update-model', 'update-model');
 
 $route->map('DELETE', '/delete-model', 'delete-model');
 
+
 require './controller/server-ctrl.php';

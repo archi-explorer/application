@@ -1,6 +1,6 @@
 "use-strict";
 
-import * as AUTH from "../request-controller/rqst-authenticate-ctrl.js";
+import * as AUTH from "../request-controller/rqst-user-ctrl";
 
 const signout = document.querySelector(".signout");
 const model = document.querySelector(".modelLink");

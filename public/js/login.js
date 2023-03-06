@@ -1,6 +1,6 @@
 "use-strict";
 
-import * as AUTH from "../request-controller/rqst-authenticate-ctrl.js";
+import * as AUTH from "../request-controller/rqst-user-ctrl";
 
 const form = document.querySelector("#login-form");
 
