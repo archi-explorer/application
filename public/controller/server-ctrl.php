@@ -7,9 +7,8 @@ if (is_array($match)) {
         call_user_func_array($match['target'], $match['params']);
     } else {
         $params = $match['params'];
-
-        require "../server/{$match['target']}.php";
     }
+    require "../server/{$match['target']}.php";
 } else {
     throw new Error('Error 404:Server Error');
 }

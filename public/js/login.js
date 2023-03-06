@@ -18,7 +18,6 @@ form.addEventListener("submit", (e) => {
 //----------------------------------------------
 
 async function authenticate(uname, psw) {
-  console.log(uname, psw);
   const auth = new AUTH.RequestAuth(uname, psw);
   const res = await auth.auth();
   console.log(res);
@@ -37,9 +36,7 @@ async function authenticate(uname, psw) {
 // Lien header
 //-----------------------------------------------
 
-console.log("hey");
 const logo = document.querySelector(".logoContainer");
-console.log(logo);
 
 document.querySelector(".logoContainer").addEventListener("click", () => {
   console.log("clcki");

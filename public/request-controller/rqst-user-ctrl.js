@@ -17,7 +17,7 @@ class RequestAuth {
 
   async auth() {
     try {
-      const req = new Request(`${request}authenticate`);
+      const req = new Request(`${request}authentification`);
       console.log(req);
       console.log(this._uname, this._psw);
       const response = await fetch(req, {

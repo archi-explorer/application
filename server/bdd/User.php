@@ -104,10 +104,12 @@ class User
 
             $user = $stmt->get_result()->fetch_assoc();
 
+            echo json_encode(true);
+
             // Vérification du mot de passe
-            if ($user && password_verify($this->_psw, $user['password'])) {
-                return true;
-            }
+            // if ($user && password_verify($this->_psw, $user['password'])) {
+            //     return true;
+            // }
         }
 
         return false;
