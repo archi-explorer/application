@@ -19,7 +19,7 @@ class User
         $this->setLogin($login);
         $this->setUname($uname);
         $this->setPsw($psw);
-        $this->setRole($role);
+        $this->setRoleId($role);
         $this->setEmail($email);
     }
 
@@ -53,14 +53,34 @@ class User
         $this->_psw = $psw;
     }
 
-    public function setRole(string $role): void
+    public function getRoleId()
+    {
+        return $this->_rid;
+    }
+
+    public function setRoleId(string $role): void
     {
         $this->_rid = $role;
+    }
+
+    public function getEmail()
+    {
+        return $this->_email;
     }
 
     public function setEmail(string $email): void
     {
         $this->_email = $email;
+    }
+
+    public function getRole(): string
+    {
+        $role = new Role($this->_rid);
+        if ($role->exists())
+            throw new Exception("Invalid request, 'Role' does not exists");
+
+        $rid = $this->getRoleId();
+        return Role::getRoleName($rid);
     }
 
     public function exists(): bool
@@ -91,15 +111,6 @@ class User
         }
 
         return false;
-    }
-
-    public function getRole(): string
-    {
-        $role = new Role($this->_rid);
-        if ($role->exists())
-            throw new Exception("Invalid request, 'Role' does not exists");
-
-        return Role::getRoleName($this->_rid);
     }
 
     public function create(): bool
