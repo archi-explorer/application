@@ -6,7 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><?= $pageTitle ?? 'Mon site' ?></title>
+    <title>
+        <?php
+        if (!$pageTitle) {
+            echo 'Mon site';
+        } else {
+            echo $pageTitle;
+        }
+        ?>
+    </title>
 
     <link rel="icon" href="./images/logo-solution.png" />
 
@@ -45,7 +53,15 @@
 
             <div class="login">
                 <span class="material-symbols-outlined"> account_circle </span>
-                <p><?= $_SESSION['user'] ?? 'Mon compte' ?></p>
+                <p>
+                    <?php
+                    if (!$_SESSION['user']) {
+                        echo 'Mon site';
+                    } else {
+                        echo $_SESSION['user'];
+                    }
+                    ?>
+                </p>
             </div>
         </div>
     </header>
