@@ -40,11 +40,11 @@ $router->map('DELETE', '/delete-model', 'model/delete-model');
 try {
     require './controller/client-ctrl.php';
 } catch (Exception $e) {
-    echo "No matching client routes";
+    echo "No matching client routes<br>";
 }
 
 try {
     require './controller/server-ctrl.php';
 } catch (Exception $e) {
-    echo "No matching server routes";
+    echo "No matching server routes<br>";
 }
