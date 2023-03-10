@@ -37,6 +37,12 @@ $router->map('PUT', '/update-model', 'model/update-model');
 
 $router->map('DELETE', '/delete-model', 'model/delete-model');
 
-
-require './controller/client-ctrl.php';
-require './controller/server-ctrl.php';
+try {
+    require './controller/client-ctrl.php';
+} catch (Exception $e) {
+    try {
+        require './controller/server-ctrl.php';
+    } catch (Exception $e) {
+        echo "No matching routes";
+    }
+}
