@@ -12,5 +12,5 @@ if (is_array($match)) {
     }
     require "../server/{$match['target']}.php";
 } else {
-    throw new Error('Error 404:Server Error');
+    throw new Exception('Error 404:Server Error');
 }

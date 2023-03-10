@@ -14,5 +14,5 @@ if (is_array($match)) {
     }
     require '../elements/layout.php';
 } else {
-    throw new Error('Error 404:No page found');
+    throw new Exception('Error 404:No page found');
 }
