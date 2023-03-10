@@ -3,6 +3,7 @@
 $match = $router->match();
 
 echo "client<br>";
+echo $match;
 
 if (is_array($match)) {
     echo "$match";
