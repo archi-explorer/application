@@ -2,6 +2,8 @@
 
 $match = $router->match();
 
+echo "client<br>";
+
 if (is_array($match)) {
     echo "$match";
     if (is_callable($match['target'])) {
