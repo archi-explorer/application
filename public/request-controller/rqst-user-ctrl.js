@@ -7,11 +7,11 @@
 const request = "http://archi-test.com/";
 
 class RequestAuth {
-  _uname;
+  _login;
   _psw;
 
-  constructor(uname, psw) {
-    this._uname = uname;
+  constructor(login, psw) {
+    this._login = login;
     this._psw = psw;
   }
 
@@ -19,14 +19,14 @@ class RequestAuth {
     try {
       const req = new Request(`${request}authenticate`);
       console.log(req);
-      console.log(this._uname, this._psw);
+      console.log(this._login, this._psw);
       const response = await fetch(req, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
         body: `uname=${encodeURIComponent(
-          this._uname
+          this._login
         )}&psw=${encodeURIComponent(this._psw)}`,
       });
       console.log(response);
