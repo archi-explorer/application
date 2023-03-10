@@ -40,7 +40,7 @@ $router->map('DELETE', '/delete-model', 'model/delete-model');
 try {
     include './controller/client-ctrl.php';
 } catch (Exception $e) {
-    echo "No matching routes"
+    echo "No matching routes";
 }
 
 try {
