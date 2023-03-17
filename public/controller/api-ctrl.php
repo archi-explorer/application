@@ -3,14 +3,16 @@
 $match = $router->match();
 
 if (is_array($match)) {
-    // echo "$match";
     if (is_callable($match['target'])) {
         call_user_func_array($match['target'], $match['params']);
     } else {
         $params = $match['params'];
 
-        require "../server/{$match['target']}.php";
+        ob_start();
+        require "../api/{$match['target']}.php";
+        $pageContent = ob_get_clean();
     }
+    require '../elements/layout.php';
 } else {
-    throw new Exception('Error 404:Server Error');
+    throw new Exception('Error 404:No page found');
 }

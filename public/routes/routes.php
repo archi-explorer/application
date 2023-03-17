@@ -2,49 +2,40 @@
 
 // Routes client
 
-$router->map('GET', '/', 'welkome');
-$router->map('GET', '/welkome', 'welkome', 'welkome');
-$router->map('GET', '/login', 'login', 'login');
-$router->map('GET', '/account', 'account', 'account');
-$router->map('GET', '/admin', 'admin', 'admin');
-$router->map('GET', '/contact', 'contact', 'contact');
-$router->map('GET', '/model-chooser', 'model-chooser', 'model-chooser');
-$router->map('GET', '/model-viewer/[*:model]', 'model-viewer/model', 'model-viewer');
+$router->map('GET', '/', 'templates/welkome');
+$router->map('GET', '/welkome', 'templates/welkome', 'welkome');
+$router->map('GET', '/login', 'templates/login', 'login');
+$router->map('GET', '/account', 'templates/account', 'account');
+$router->map('GET', '/admin', 'templates/admin', 'admin');
+$router->map('GET', '/contact', 'templates/contact', 'contact');
+$router->map('GET', '/model-chooser', 'templates/model-chooser', 'model-chooser');
+$router->map('GET', '/model-viewer/[*:model]', 'templates/model-viewer/model', 'model-viewer');
 
 // Route users
 
-$router->map('GET', '/get-users', 'user/get-users');
-$router->map('GET', '/get-uname', 'user/get-uname');
-$router->map('GET', '/signout', 'user/signout');
+$router->map('GET', '/get-users', 'server/user/get-users');
+$router->map('GET', '/get-uname', 'server/user/get-uname');
+$router->map('GET', '/signout', 'server/user/signout');
 
-$router->map('POST', '/authenticate', 'user/authenticate');
-$router->map('POST', '/add-user', 'user/add-user');
+$router->map('POST', '/authenticate', 'server/user/authenticate');
+$router->map('POST', '/add-user', 'server/user/add-user');
 
-$router->map('PUT', '/update-user', 'user/update-user');
-$router->map('PUT', '/update-psw', 'user/update-psw');
+$router->map('PUT', '/update-user', 'server/user/update-user');
+$router->map('PUT', '/update-psw', 'server/user/update-psw');
 
-$router->map('DELETE', '/delete-user', 'user/delete-user');
+$router->map('DELETE', '/delete-user', 'server/user/delete-user');
 
 // Route modèle
 
-$router->map('GET', '/get-model', 'model/get-model');
-$router->map('GET', '/get-data-model', 'model/get-data-model');
+$router->map('GET', '/get-model', 'server/model/get-model');
+$router->map('GET', '/get-data-model', 'server/model/get-data-model');
 
-$router->map('POST', '/add-model', 'model/add-model');
-$router->map('POST', '/set-model', 'model/set-model');
+$router->map('POST', '/add-model', 'server/model/add-model');
+$router->map('POST', '/set-model', 'server/model/set-model');
 
-$router->map('PUT', '/update-model', 'model/update-model');
+$router->map('PUT', '/update-model', 'server/model/update-model');
 
-$router->map('DELETE', '/delete-model', 'model/delete-model');
+$router->map('DELETE', '/delete-model', 'server/model/delete-model');
 
-try {
-    require './controller/client-ctrl.php';
-} catch (Exception $e) {
-    echo "No matching client routes<br>";
-}
 
-try {
-    require './controller/server-ctrl.php';
-} catch (Exception $e) {
-    echo "No matching server routes<br>";
-}
+require "../controller/client-ctrl.php";
