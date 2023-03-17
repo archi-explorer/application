@@ -38,4 +38,4 @@ $router->map('PUT', '/update-model', 'server/model/update-model');
 $router->map('DELETE', '/delete-model', 'server/model/delete-model');
 
 
-require "../controller/client-ctrl.php";
+require "../controller/api-ctrl.php";
