@@ -13,29 +13,29 @@ $router->map('GET', '/model-viewer/[*:model]', 'templates/model-viewer/model', '
 
 // Route users
 
-$router->map('GET', '/get-users', 'server/user/get-users');
-$router->map('GET', '/get-uname', 'server/user/get-uname');
-$router->map('GET', '/signout', 'server/user/signout');
+$router->map('GET', '/get-users', 'data/user/get-users');
+$router->map('GET', '/get-uname', 'data/user/get-uname');
+$router->map('GET', '/signout', 'data/user/signout');
 
-$router->map('POST', '/authenticate', 'server/user/authenticate');
-$router->map('POST', '/add-user', 'server/user/add-user');
+$router->map('POST', '/authenticate', 'data/user/authenticate');
+$router->map('POST', '/add-user', 'data/user/add-user');
 
-$router->map('PUT', '/update-user', 'server/user/update-user');
-$router->map('PUT', '/update-psw', 'server/user/update-psw');
+$router->map('PUT', '/update-user', 'data/user/update-user');
+$router->map('PUT', '/update-psw', 'data/user/update-psw');
 
-$router->map('DELETE', '/delete-user', 'server/user/delete-user');
+$router->map('DELETE', '/delete-user', 'data/user/delete-user');
 
 // Route modèle
 
-$router->map('GET', '/get-model', 'server/model/get-model');
-$router->map('GET', '/get-data-model', 'server/model/get-data-model');
+$router->map('GET', '/get-model', 'data/model/get-model');
+$router->map('GET', '/get-data-model', 'data/model/get-data-model');
 
-$router->map('POST', '/add-model', 'server/model/add-model');
-$router->map('POST', '/set-model', 'server/model/set-model');
+$router->map('POST', '/add-model', 'data/model/add-model');
+$router->map('POST', '/set-model', 'data/model/set-model');
 
-$router->map('PUT', '/update-model', 'server/model/update-model');
+$router->map('PUT', '/update-model', 'data/model/update-model');
 
-$router->map('DELETE', '/delete-model', 'server/model/delete-model');
+$router->map('DELETE', '/delete-model', 'data/model/delete-model');
 
 
 require './controller/api-ctrl.php';
