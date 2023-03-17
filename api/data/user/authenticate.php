@@ -19,7 +19,7 @@ $psw = htmlspecialchars($_POST['psw']);
 
 // echo ($login . ' ' . $psw . '<br>');
 
-require_once('../bdd-model/User.php');
+require_once('../bdd/User.php');
 
 $user = new User($login, "", $psw, "", "");
 
