@@ -12,7 +12,7 @@ if (is_array($match)) {
         require "../api/{$match['target']}.php";
         $pageContent = ob_get_clean();
     }
-    require '../elements/layout.php';
+    require '../layouts/layout.php';
 } else {
     throw new Exception('Error 404:No page found');
 }

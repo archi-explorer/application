@@ -1,7 +1,7 @@
 <?php
 
 require_once("MySQLi.php");
-require_once("Role.php");
+// require_once("Role.php");
 
 class User
 {
@@ -14,7 +14,7 @@ class User
     private const USER_TABLE = "User";
     private const ROLE_TABLE = "Role";
 
-    public function __construct(string $login, string $uname, string $psw = null, string $role = null, string $email = null)
+    public function __construct(string $login, string $uname = null, string $psw = null, string $role = null, string $email = null)
     {
         $this->setLogin($login);
         $this->setUname($uname);
