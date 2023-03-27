@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 session_start();
 
 header('Access-Control-Allow-Origin: *');
@@ -27,11 +29,16 @@ echo "passed3<br/>";
 
 echo ($login . ' ' . $psw . '<br/>');
 
-require_once('../api/data/bdd/User.php');
+require_once('model/User.php');
 
 echo "passed4<br/>";
 
-$user = new User($login, "", $psw, "", "");
+echo gettype($login) . "<br/>";
+echo gettype($psw) . "<br/>";
+
+$user = new User($login, "", $psw, null, "");
+
+echo "passed5<br/>";
 
 
 try {

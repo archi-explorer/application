@@ -1,20 +1,18 @@
 <?php
 
 require_once("MySQLi.php");
-// require_once("Role.php");
 
 class User
 {
-    private string $_login;
-    private string $_uname;
-    private ?string $_psw;
-    private ?string $_rid;
-    private ?string $_email;
+    private $_login;
+    private $_uname;
+    private $_psw;
+    private $_rid;
+    private $_email;
 
-    private const USER_TABLE = "User";
-    private const ROLE_TABLE = "Role";
+    const USER_TABLE = "User";
 
-    public function __construct(string $login, string $uname = null, string $psw = null, string $role = null, string $email = null)
+    public function __construct(string $login, string $uname = null, string $psw = null, int $role = null, string $email = null)
     {
         $this->setLogin($login);
         $this->setUname($uname);
@@ -53,17 +51,17 @@ class User
         $this->_psw = $psw;
     }
 
-    public function getRoleId()
+    public function getRoleId(): int
     {
         return $this->_rid;
     }
 
-    public function setRoleId(string $role): void
+    public function setRoleId(int $role): void
     {
         $this->_rid = $role;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->_email;
     }
@@ -73,15 +71,15 @@ class User
         $this->_email = $email;
     }
 
-    public function getRole(): string
-    {
-        $role = new Role($this->_rid);
-        if ($role->exists())
-            throw new Exception("Invalid request, 'Role' does not exists");
+    // public function getRole()
+    // {
+    //     $role = new Role($this->_rid);
+    //     if ($role->exists())
+    //         throw new Exception("Invalid request, 'Role' does not exists");
 
-        $rid = $this->getRoleId();
-        return Role::getRoleName($rid);
-    }
+    //     $rid = $this->getRoleId();
+    //     return Role::getRoleName($rid);
+    // }
 
     public function exists(): bool
     {
