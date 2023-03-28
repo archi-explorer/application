@@ -12,7 +12,7 @@ class User
 
     const USER_TABLE = "User";
 
-    public function __construct(string $login, string $uname = null, string $psw = null, int $role = null, string $email = null)
+    public function __construct($login, $uname = null, $psw = null, $role = null, $email = null)
     {
         $this->setLogin($login);
         $this->setUname($uname);
@@ -21,52 +21,52 @@ class User
         $this->setEmail($email);
     }
 
-    public function getLogin(): string
+    public function getLogin()
     {
         return $this->_login;
     }
 
-    public function setLogin(string $log): void
+    public function setLogin($log)
     {
         $this->_login = $log;
     }
 
-    public function getUname(): string
+    public function getUname()
     {
         return $this->_uname;
     }
 
-    public function setUname(string $uname): void
+    public function setUname($uname)
     {
         $this->_uname = $uname;
     }
 
-    public function getPsw(): string
+    public function getPsw()
     {
         return $this->_psw;
     }
 
-    public function setPsw(string $psw): void
+    public function setPsw($psw)
     {
         $this->_psw = $psw;
     }
 
-    public function getRoleId(): int
+    public function getRoleId()
     {
         return $this->_rid;
     }
 
-    public function setRoleId(int $role): void
+    public function setRoleId($role)
     {
         $this->_rid = $role;
     }
 
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->_email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail($email)
     {
         $this->_email = $email;
     }
@@ -81,14 +81,18 @@ class User
     //     return Role::getRoleName($rid);
     // }
 
-    public function exists(): bool
+    public function exists()
     {
         $con = MonSQLi::sqli();
 
+        echo "passed1_user <br/>";
+
         if (mysqli_connect_errno()) {
-            // echo ("connection error");
+            echo ("connection error");
             exit(1);
         }
+
+        echo "passed2_user <br/>";
 
         // Préparation de la requête
         if ($stmt = $con->prepare('SELECT password FROM ' . self::USER_TABLE . ' WHERE login = ?')) {
@@ -97,10 +101,14 @@ class User
             // Exécution de la requête
             $stmt->execute();
 
+            echo "passed3_user <br/>";
+
             if (!$stmt)
                 throw new Exception("Error: user access in DB failed");
 
             $user = $stmt->get_result()->fetch_assoc();
+
+            echo $user;
 
             echo json_encode(true);
 
@@ -108,12 +116,16 @@ class User
             // if ($user && password_verify($this->_psw, $user['password'])) {
             //     return true;
             // }
+
+            return true;
         }
+
+        echo "failed stmt";
 
         return false;
     }
 
-    public function create(): bool
+    public function create()
     {
         $con = MonSQLi::sqli();
 
@@ -140,7 +152,7 @@ class User
         return true;
     }
 
-    public function getUsers(): array
+    public function getUsers()
     {
         $con = MonSQLi::sqli();
 
@@ -163,7 +175,7 @@ class User
         return [];
     }
 
-    public function deleteUser(): bool
+    public function deleteUser()
     {
         $con = MonSQLi::sqli();
 
@@ -190,7 +202,7 @@ class User
         return false;
     }
 
-    public function updateUser(string $log): bool
+    public function updateUser(string $log)
     {
         $con = MonSQLi::sqli();
 
@@ -217,7 +229,7 @@ class User
         return false;
     }
 
-    public function updatePsw(): bool
+    public function updatePsw()
     {
         $con = MonSQLi::sqli();
 

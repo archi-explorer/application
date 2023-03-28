@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 session_start();
 
 header('Access-Control-Allow-Origin: *');
@@ -36,10 +34,21 @@ echo "passed4<br/>";
 echo gettype($login) . "<br/>";
 echo gettype($psw) . "<br/>";
 
-$user = new User($login, "", $psw, null, "");
+if (!is_string($login)) {
+    echo "Login not string";
+    exit(1);
+}
+
+if (!is_string($psw)) {
+    echo "Psw not string";
+    exit(1);
+}
 
 echo "passed5<br/>";
 
+$user = new User($login, "", $psw, null, "");
+
+echo "passed6<br/>";
 
 try {
     if (!$user->exists()) {

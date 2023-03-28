@@ -25,8 +25,9 @@ class MonSQLi
             // echo ("assign DSN<br>");
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             self::$_sqli = new mysqli($host, $username, $password, $database);
+            // echo ("Connexion réussi<br>");
         }
-        // echo ("Connexion réussi<br>");
+
         return self::$_sqli;
     }
 }
