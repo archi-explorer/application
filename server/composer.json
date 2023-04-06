@@ -1,0 +1,17 @@
+{
+    "name": "qwart/server",
+    "autoload": {
+        "psr-4": {
+            "Qwart\\Server\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Quentin Warth",
+            "email": "qwarth@arhcimed-ge.com"
+        }
+    ],
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
+}
