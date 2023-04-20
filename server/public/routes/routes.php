@@ -2,29 +2,33 @@
 
 // Route users
 
-$router->map('GET', '/get-users', 'data/user/get-users');
-$router->map('GET', '/get-uname', 'data/user/get-uname');
-$router->map('GET', '/signout', 'data/user/signout');
+$router->map('GET', '/', function () {
+    echo "Cette page est inaccessible";
+});
 
-$router->map('POST', '/authenticate', 'data/user/authenticate');
-$router->map('POST', '/add-user', 'data/user/add-user');
+$router->map('GET', '/get-users', 'user/get-users');
+$router->map('GET', '/get-uname', 'user/get-uname');
+$router->map('GET', '/signout', 'user/signout');
 
-$router->map('PUT', '/update-user', 'data/user/update-user');
-$router->map('PUT', '/update-psw', 'data/user/update-psw');
+$router->map('POST', '/authenticate', 'user/authenticate');
+$router->map('POST', '/add-user', 'user/add-user');
 
-$router->map('DELETE', '/delete-user', 'data/user/delete-user');
+$router->map('PUT', '/update-user', 'user/update-user');
+$router->map('PUT', '/update-psw', 'user/update-psw');
+
+$router->map('DELETE', '/delete-user', 'user/delete-user');
 
 // Route modèle
 
-$router->map('GET', '/get-model', 'data/model/get-model');
-$router->map('GET', '/get-data-model', 'data/model/get-data-model');
+$router->map('GET', '/get-model', 'model/get-model');
+$router->map('GET', '/get-data-model', 'model/get-data-model');
 
-$router->map('POST', '/add-model', 'data/model/add-model');
-$router->map('POST', '/set-model', 'data/model/set-model');
+$router->map('POST', '/add-model', 'model/add-model');
+$router->map('POST', '/set-model', 'model/set-model');
 
-$router->map('PUT', '/update-model', 'data/model/update-model');
+$router->map('PUT', '/update-model', 'model/update-model');
 
-$router->map('DELETE', '/delete-model', 'data/model/delete-model');
+$router->map('DELETE', '/delete-model', 'model/delete-model');
 
 
 require './controller/api-ctrl.php';

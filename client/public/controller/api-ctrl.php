@@ -9,7 +9,7 @@ if (is_array($match)) {
         $params = $match['params'];
 
         ob_start();
-        require "../api/{$match['target']}.php";
+        require "../templates/{$match['target']}.php";
         $pageContent = ob_get_clean();
     }
     require '../layouts/layout.php';

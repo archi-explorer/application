@@ -4,7 +4,7 @@
  * Module de gestion de l'authentification de l'utilisateur
  */
 
-const request = "http://archi-test.com/";
+const request = "http://archimed-gestion.com/";
 
 class RequestAuth {
   _login;
@@ -50,7 +50,7 @@ class RequestSignout {
       const req = new Request(`${request}signout`);
       await fetch(req);
 
-      window.location.replace("https://archi-explorer.com/login");
+      window.location.replace("http://archi-test.com/login");
     } catch (error) {
       console.log(error.message);
     }

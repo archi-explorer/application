@@ -1,6 +1,6 @@
 "use-strict";
 
-document.querySelector(".login").addEventListener("click", () => {
+document.querySelector(".user").addEventListener("click", () => {
   window.location.replace("http://archi-test.com/login");
 });
 

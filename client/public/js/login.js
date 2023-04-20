@@ -24,6 +24,7 @@ async function authenticate(login, psw) {
 
   if (res) {
     window.location.replace("http://archi-test.com/account");
+    console.log("location change");
   } else {
     alert("wrong password/login");
   }

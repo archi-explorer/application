@@ -88,7 +88,7 @@ header {
   margin: 0;
 }
 
-.login {
+.user {
   cursor: pointer;
   position: absolute;
   height: 90%;
@@ -103,12 +103,12 @@ header {
   flex-direction: column;
 }
 
-.login > span {
+.user > span {
   font-size: 40px;
   font-variation-settings: "OPSZ" 40;
 }
 
-.login p {
+.user p {
   margin: 0;
 }
 
