@@ -20,23 +20,13 @@ form.addEventListener("submit", (e) => {
 async function authenticate(login, psw) {
   const auth = new AUTH.RequestAuth(login, psw);
   const res = await auth.auth();
-  console.log(res);
 
   if (res) {
-    window.location.replace("http://archi-test.com/account");
+    window.location.replace("http://archi-test.com/admin");
     console.log("location change");
   } else {
     alert("wrong password/login");
   }
-
-  // if (res.exist && res.role === "admin") {
-  //   console.log("admin");
-  //   window.location.replace("http://archi-test.com/admin");
-  // } else if (res.exist && res.role != "admin") {
-  //   console.log("diff admin");
-  //   window.location.replace("http://archi-test.com/account");
-  // } else {
-  // }
 }
 
 //-----------------------------------------------

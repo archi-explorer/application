@@ -91,7 +91,7 @@ class User
         }
 
         // Préparation de la requête
-        if ($stmt = $con->prepare('SELECT psw FROM ' . self::USER_TABLE . ' WHERE login = ?')) {
+        if ($stmt = $con->prepare('SELECT psw, r_id FROM ' . self::USER_TABLE . ' WHERE login = ?')) {
             // On assigne la variable login
             $stmt->bind_param("s", $this->_login);
             // Exécution de la requête
@@ -105,7 +105,7 @@ class User
             // Vérification du mot de passe
             if ($user && $this->_psw === $user['psw']) {
                 // echo 'user exist<br/>';
-                return true;
+                return $user['r_id'];
             }
         }
 

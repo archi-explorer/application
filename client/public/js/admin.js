@@ -1,7 +1,7 @@
 "use-strict";
 
-import * as MODEL_LIST from "../request-controller/rqst-model-list-ctrl";
-import * as AUTH from "../request-controller/rqst-user-ctrl";
+// import * as MODEL_LIST from "../controller/rqst-model-list-ctrl";
+import * as AUTH from "../controller/rqst-user-ctrl";
 
 /**
  * Génération de l'interface
@@ -10,36 +10,36 @@ const modelUploadList = document.querySelector("#pickfile-model");
 const panoUploadList = document.querySelector("#pickfile-pano");
 const csvUploadList = document.querySelector("#pickfile-csv");
 
-const model = new MODEL_LIST.RequestModelList(
-  "sample-model",
-  modelUploadList,
-  "sample-panorama",
-  panoUploadList,
-  "sample-csv",
-  csvUploadList
-);
+// const model = new MODEL_LIST.RequestModelList(
+//   "sample-model",
+//   modelUploadList,
+//   "sample-panorama",
+//   panoUploadList,
+//   "sample-csv",
+//   csvUploadList
+// );
 
 /**
  * Génération de la liste des modèles
  */
 
-const listModel = await model.getModel();
+// const listModel = await model.getModel();
 
-const list = document.querySelector(".model-list-container");
+// const list = document.querySelector(".model-list-container");
 
-let cities = [];
+// let cities = [];
 
-listModel.forEach((element) => {
-  if (cities.includes(element.CITY)) {
-    document.querySelector(
-      `.${element.CITY}`
-    ).innerHTML += `<li>model : ${element.MNAME}</li>`;
-  } else {
-    cities.push(element.CITY);
+// listModel.forEach((element) => {
+//   if (cities.includes(element.CITY)) {
+//     document.querySelector(
+//       `.${element.CITY}`
+//     ).innerHTML += `<li>model : ${element.MNAME}</li>`;
+//   } else {
+//     cities.push(element.CITY);
 
-    list.innerHTML += `<details class="list" name="${element.CITY}"><summary>--- ${element.CITY} ---</summary><ul class="${element.CITY}"><li class="${element.MNAME}">model: ${element.MNAME}</li></ul></details>`;
-  }
-});
+//     list.innerHTML += `<details class="list" name="${element.CITY}"><summary>--- ${element.CITY} ---</summary><ul class="${element.CITY}"><li class="${element.MNAME}">model: ${element.MNAME}</li></ul></details>`;
+//   }
+// });
 
 /**
  * Formulaire d'ajout d'un modèles
@@ -88,22 +88,22 @@ async function formUpload(city, role) {
  * Vue des utilisateurs
  */
 
-const users = new AUTH.RequestgetUsers();
-const usersList = await users.getUsers();
+// const users = new AUTH.RequestgetUsers();
+// const usersList = await users.getUsers();
 
-const listUser = document.querySelector(".user-list-container");
+// const listUser = document.querySelector(".user-list-container");
 
-usersList.forEach((user) => {
-  listUser.innerHTML += `<li id="container-${user[0]}" class="">
-  <p>${user[0]}</p>
-  <p>${user[1]}</p>
-  <p>${user[2]}</p>
-  <div class="alter-bdd">
-    <button class="modify-user" id="${user[0]}">Modifier</button>
-    <button class="delete-user" id="${user[0]}">Supprimer</button>
-  </div>
-  </li>`;
-});
+// usersList.forEach((user) => {
+//   listUser.innerHTML += `<li id="container-${user[0]}" class="">
+//   <p>${user[0]}</p>
+//   <p>${user[1]}</p>
+//   <p>${user[2]}</p>
+//   <div class="alter-bdd">
+//     <button class="modify-user" id="${user[0]}">Modifier</button>
+//     <button class="delete-user" id="${user[0]}">Supprimer</button>
+//   </div>
+//   </li>`;
+// });
 
 /**
  * Modification d'un utilisateur
@@ -361,10 +361,11 @@ function updateKO() {
  */
 
 const signout = document.querySelector(".signout");
+console.log(signout);
 signout.addEventListener("click", () => {
   console.log("signout");
-  const signout = new AUTH.RequestSignout();
-  signout.signout();
+  const auth = new AUTH.RequestSignout();
+  auth.signout();
 });
 
 const modelChoosing = document.querySelector(".modelLink");

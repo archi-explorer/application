@@ -30,5 +30,8 @@ $router->map('PUT', '/update-model', 'model/update-model');
 
 $router->map('DELETE', '/delete-model', 'model/delete-model');
 
+// Route Rôle
+
+$router->map('POST', '/get-role', 'role/get-role');
 
 require './controller/api-ctrl.php';

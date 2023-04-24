@@ -34,7 +34,21 @@ class RequestAuth {
       const data = await response.json();
       console.log(data);
 
-      return data;
+      if (data.status && data.user && data.role) {
+        await fetch("http://archi-test.com/session-write", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          },
+          body: `user=${encodeURIComponent(
+            data.user
+          )}&role=${encodeURIComponent(data.role)}`,
+        });
+
+        console.log(data.status);
+        console.log(data.user);
+        return true;
+      }
     } catch (error) {
       console.log(error.message);
       return false;

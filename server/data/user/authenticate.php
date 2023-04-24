@@ -22,13 +22,26 @@ require_once('model/User.php');
 $user = new User($login, "", $psw, null, "");
 
 try {
-    // echo 'exist<br/>';
-    if (!$user->exists()) {
+    if (!$rid = $user->exists()) {
         echo json_encode("doesn't exist");
         exit(1);
     }
 
-    echo json_encode(true);
+    $res = array('status' => true, 'user' => $login);
+
+    try {
+        require_once('model/Role.php');
+
+        $role = new Role($rid);
+
+        if ($rname = $role->getRoleName()) {
+            $res += ['role' => $rname['rname']];
+        }
+    } catch (Exception $e) {
+        exit(1);
+    }
+
+    echo json_encode($res);
 } catch (PDOException $e) {
     echo json_encode($e);
     exit(1);
@@ -36,12 +49,3 @@ try {
     echo json_encode($e);
     exit(1);
 }
-
-$_SESSION['user'] = $login;
-
-// try {
-//     $role = $user->getRole();
-//     $_SESSION['role'] = $role;
-// } catch (Exception $e) {
-//     echo ($e->getMessage());
-// }

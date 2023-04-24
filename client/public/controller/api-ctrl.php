@@ -11,6 +11,8 @@ if (is_array($match)) {
         ob_start();
         require "../templates/{$match['target']}.php";
         $pageContent = ob_get_clean();
+
+        echo $_SESSION["user"];
     }
     require '../layouts/layout.php';
 } else {
