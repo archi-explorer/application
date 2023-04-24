@@ -4,26 +4,31 @@ require_once("MySQLi.php");
 
 class Model
 {
-    private string $_mid;
+    private $_mid;
 
-    private const MODEL_TABLE = "Model";
+    const MODEL_TABLE = "Model";
 
-    public function __construct(int $mid)
+    public function __construct($mid = null)
     {
         $this->setModelId($mid);
     }
 
-    public function getModelId(): int
+    public function getModelId()
     {
         return $this->_mid;
     }
 
-    public function setModelId($id): void
+    public function setModelId($id)
     {
         $this->_mid = $id;
     }
 
-    public function getModelName(): string
+    /**
+     * Return la liste de tous les modèles
+     * N'est utilisé que par les admins
+     */
+
+    public function getAllModel()
     {
         $con = MonSQLi::sqli();
 
@@ -31,28 +36,26 @@ class Model
             exit(1);
         }
 
-        if ($stmt = $con->prepare('SELECT mname FROM ' . self::MODEL_TABLE . ' WHERE id = ?')) {
-            $stmt->bind_param("s", $this->_mid);
-
+        if ($stmt = $con->prepare('SELECT * FROM ' . self::MODEL_TABLE)) {
             $stmt->execute();
 
             if (!$stmt)
                 throw new Exception("Error: No Model found or DB access failed");
 
-            $mname = $stmt->get_result()->fetch_assoc();
+            $mname = $stmt->get_result()->fetch_all();
 
-            return $mname['mname'];
+            return $mname;
         }
 
         return "";
     }
 
-    public function addModel(string $mname, array $rlist): bool
+    public function addModel($mname,  $rlist)
     {
         return false;
     }
 
-    public function updateModel(string $mname, string $rid): bool
+    public function updateModel($mname,  $rid)
     {
         $con = MonSQLi::sqli();
 
@@ -77,7 +80,7 @@ class Model
         return false;
     }
 
-    public function deleteModel(int $mid): bool
+    public function deleteModel($mid)
     {
         return false;
     }

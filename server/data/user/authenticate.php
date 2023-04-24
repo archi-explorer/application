@@ -35,6 +35,7 @@ try {
         $role = new Role($rid);
 
         if ($rname = $role->getRoleName()) {
+            $_SESSION['role'] = $rname['rname'];
             $res += ['role' => $rname['rname']];
         }
     } catch (Exception $e) {
