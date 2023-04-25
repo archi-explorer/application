@@ -64,6 +64,9 @@ class RequestSignout {
       const req = new Request(`${request}signout`);
       await fetch(req);
 
+      const req_client = new Request("http://archi-test.com/session-killed");
+      await fetch(req_client);
+
       window.location.replace("http://archi-test.com/login");
     } catch (error) {
       console.log(error.message);

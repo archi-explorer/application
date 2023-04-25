@@ -12,5 +12,6 @@ $router->map('GET', '/model-chooser', 'model-chooser', 'model-chooser');
 $router->map('GET', '/model-viewer/[*:model]', 'model-viewer/model', 'model-viewer');
 
 $router->map('POST', '/session-write', 'session-write');
+$router->map('GET', '/session-killed', 'session-killed');
 
 require './controller/api-ctrl.php';
