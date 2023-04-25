@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -55,10 +59,10 @@
                 <span class="material-symbols-outlined"> account_circle </span>
                 <p>
                     <?php
-                    if (!$_SESSION['user']) {
-                        echo 'Utilisateur';
-                    } else {
+                    if (isset($_SESSION['user'])) {
                         echo $_SESSION['user'];
+                    } else {
+                        echo 'Utilisateur';
                     }
                     ?>
                 </p>
