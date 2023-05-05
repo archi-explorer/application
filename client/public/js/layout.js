@@ -4,12 +4,12 @@
 
 document.querySelector(".logoContainer").addEventListener("click", () => {
   console.log("header logo");
-  location.assign("http://archimed-sky.com/welkome");
+  location.assign("http://archi-test.com.com/welkome");
 });
 
 document.querySelector(".user").addEventListener("click", () => {
   console.log("header login");
-  location.assign("http://archimed-sky.com/admin");
+  location.assign("http://archi-test.com.com/admin");
 });
 
 // Lien qui sera utilisé dès qu'on se login
@@ -19,13 +19,13 @@ if (
 ) {
   document.querySelector(".modelLink").addEventListener("click", () => {
     console.log("header model");
-    location.assign("http://archimed-sky.com/model-chooser");
+    location.assign("http://archi-test.com.com/model-chooser");
   });
 }
 
 document.querySelector(".contact").addEventListener("click", () => {
   console.log("header contact");
-  location.assign("http://archimed-sky.com/contact");
+  location.assign("http://archi-test.com.com/contact");
 });
 
 //-----------------------------------------------

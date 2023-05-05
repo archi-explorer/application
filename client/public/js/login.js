@@ -15,7 +15,6 @@ form.addEventListener("submit", (e) => {
   // callit();
 });
 
-
 //----------------------------------------------
 // Fonction de mise vérification du mdp et du login
 //----------------------------------------------
@@ -25,7 +24,7 @@ async function authenticate(login, psw) {
   const res = await auth.auth();
 
   if (res) {
-    window.location.assign("http://archimed-sky.com/admin");
+    window.location.assign("http://archi-test.com.com/admin");
     console.log("location change");
   } else {
     alert("wrong password/login");
