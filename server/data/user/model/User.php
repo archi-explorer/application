@@ -102,9 +102,8 @@ class User
             $user = $stmt->get_result()->fetch_assoc();
 
             // Vérification du mot de passe
-            if ($user && $this->_psw === $user['psw']) 
-            // if ($user && password_verify($this->_psw , $user['psw'])) 
-            {
+            // if ($user && $this->_psw === $user['psw'])
+            if ($user && password_verify($this->_psw, $user['psw'])) {
                 // echo 'user exist<br/>';
                 return $user['r_id'];
             }
@@ -164,7 +163,8 @@ class User
         // }
 
         // new request
-        if ($stmt = $con->prepare('SELECT u.login, u.uname, r.rname, u.email FROM ' . self::USER_TABLE . ' u INNER JOIN '. self::ROLE_TABLE .' r ON u.r_id = r.id ORDER BY u.login DESC'
+        if ($stmt = $con->prepare(
+            'SELECT u.login, u.uname, r.rname, u.email FROM ' . self::USER_TABLE . ' u INNER JOIN ' . self::ROLE_TABLE . ' r ON u.r_id = r.id ORDER BY u.login DESC'
         )) {
             $stmt->execute();
 
@@ -259,7 +259,8 @@ class User
         return false;
     }
 
-    public function getEmailFromId(){
+    public function getEmailFromId()
+    {
         $con = MonSQLi::sqli();
 
         if (mysqli_connect_errno())

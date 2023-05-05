@@ -49,7 +49,7 @@
     // no require cause no email models
 
     $to = "arnauddelestrereal@gmail.com";
-    $headers = array("From: archi-explorer@archimed-ge.com", 
+    $headers = array("From: archi-explorer@archi-test.com", 
     "Reply-to: " . $to,
     "X-Mailer: PHP/8.2",
     "Content-Type: text/plain; charset=utf-8"); // mise en page importante (anti-spam detector)
@@ -73,4 +73,3 @@
     } catch(PDOException $e){
       echo $e->getMessage();
     }
-?>
