@@ -24,7 +24,8 @@ class RequestModelList {
       console.log("resultat : (rqst-model-list-ctrl.js)" + data);
       return data;
     } catch (error) {
-      return [];
+      console.log(error.message);
+      return null;
     }
   }
 

@@ -4,7 +4,7 @@
  * Module de gestion des requêtes à l'API NodeJs
  */
 
-const request = "http://archi-test.com/";
+const request = "http://archimed-sky.com/";
 
 // const modelName = getModelName();
 
@@ -16,7 +16,7 @@ class RequestAPI {
   _mName;
 
   _continu;
-
+ 
   constructor() {
     this._continu = false;
   }

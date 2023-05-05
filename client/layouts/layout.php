@@ -32,6 +32,7 @@ session_start();
 
     <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+
     <script src="./js/<?= $pageName ?>.js" type="module"></script>
     <script src="./js/layout.js" type="module"></script>
 </head>
@@ -60,10 +61,10 @@ session_start();
                 <span class="material-symbols-outlined"> account_circle </span>
                 <p>
                     <?php
-                    if (isset($_SESSION['user'])) {
-                        echo $_SESSION['user'];
-                    } else {
+                    if (!isset($_SESSION['user'])) {
                         echo 'Utilisateur';
+                    } else {
+                        echo $_SESSION['user'];
                     }
                     ?>
                 </p>

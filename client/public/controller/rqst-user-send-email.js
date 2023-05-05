@@ -8,6 +8,7 @@ class RequestEmailSent { // le email sera rempli cote serveur
     _tel
     _sujet
     _message
+    
 
     constructor(civilite, nom, tel, sujet, message) { 
         this._civilite = civilite;

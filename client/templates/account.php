@@ -6,12 +6,6 @@ if (empty($_SESSION["user"])) {
     exit();
 }
 
-// echo '<pre>'; print_r($_SESSION); echo '<pre>';
-
-// if(isset($_SESSION['user'])) echo "\nuser : ".$_SESSION['user']."\n";
-// if(isset($_SESSION['email']))  echo "\nemail : ".$_SESSION['email']."\n";
-
-
 $pageTitle = "Mon compte";
 $pageName = "account";
 ?>
