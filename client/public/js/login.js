@@ -1,7 +1,6 @@
 "use-strict";
 
 import * as AUTH from "../controller/rqst-user-ctrl";
-// import * as SESS from "../controller/rqst-session";
 
 const form = document.querySelector("#login-form");
 
@@ -16,11 +15,6 @@ form.addEventListener("submit", (e) => {
   // callit();
 });
 
-// async function callit(){
-//   const sessget = new SESS.RequestSESS();
-//   const sessgetres = await sessget.sess();
-//   console.log("\nsessget:"+sessgetres);
-// }
 
 //----------------------------------------------
 // Fonction de mise vérification du mdp et du login
@@ -31,7 +25,7 @@ async function authenticate(login, psw) {
   const res = await auth.auth();
 
   if (res) {
-    window.location.assign("http://archi-test.com/admin");
+    window.location.assign("http://archimed-sky.com/admin");
     console.log("location change");
   } else {
     alert("wrong password/login");

@@ -369,15 +369,6 @@ function updateKO() {
   }, 5000);
 }
 
-// import * as MAIL_CTRL from "../controller/rqst-user-send-email.js"
-
-//used to be called in function contact-button-click, redirected to layout.js
-// async function caller(){
-//   const sendEmailFromHome = new MAIL_CTRL.RequestEmailSent("monisieur","paolo","098654321","testdepuismail","jetestetouuuuuuutoutout");
-//   const stateSend = await sendEmailFromHome.sendEmail();
-//   console.log(stateSend);
-// }
-
 const signout = document.querySelector(".signout");
 console.log(signout);
 signout.addEventListener("click", () => {

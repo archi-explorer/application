@@ -1,33 +1,32 @@
+
 //-----------------------------------------------
 // Lien header
 //-----------------------------------------------
 
 document.querySelector(".logoContainer").addEventListener("click", () => {
-  console.log("header logo");
-  location.assign("http://archi-test.com/welkome");
+    console.log("header logo");
+    location.assign("http://archimed-sky.com/welkome");
 });
 
 document.querySelector(".user").addEventListener("click", () => {
   console.log("header login");
-  location.assign("http://archi-test.com/admin");
+  location.assign("http://archimed-sky.com/admin");
 });
 
 // Lien qui sera utilisé dès qu'on se login
-if (
-  window.location.href.includes("admin") ||
-  window.location.href.includes("account")
-) {
+if(window.location.href.includes("admin") || window.location.href.includes("account")){
   document.querySelector(".modelLink").addEventListener("click", () => {
     console.log("header model");
-    location.assign("http://archi-test.com/model-chooser");
+    location.assign("http://archimed-sky.com/model-chooser");
   });
 }
 
 document.querySelector(".contact").addEventListener("click", () => {
   console.log("header contact");
-  location.assign("http://archi-test.com/contact");
+  location.assign("http://archimed-sky.com/contact");
 });
 
+  
 //-----------------------------------------------
 // Lien du footer
 //-----------------------------------------------
@@ -37,7 +36,7 @@ document.querySelector(".contact").addEventListener("click", () => {
  */
 document.querySelector("#faceBook").addEventListener("click", () => {
   console.log("fb");
-  location.assign("https://www.facebook.com/ArchimedGe");
+location.assign("https://www.facebook.com/ArchimedGe");
 });
 
 /**
@@ -45,7 +44,7 @@ document.querySelector("#faceBook").addEventListener("click", () => {
  */
 document.querySelector("#instagram").addEventListener("click", () => {
   console.log("insta");
-  window.open("https://www.instagram.com/archimedge");
+window.open("https://www.instagram.com/archimedge");
 });
 
 /**
@@ -53,7 +52,7 @@ document.querySelector("#instagram").addEventListener("click", () => {
  */
 document.querySelector("#linkedIn").addEventListener("click", () => {
   console.log("linkedIn");
-  window.open("https://fr.linkedin.com/company/archimed-ge");
+window.open("https://fr.linkedin.com/company/archimed-ge");
 });
 
 /**
@@ -61,5 +60,5 @@ document.querySelector("#linkedIn").addEventListener("click", () => {
  */
 document.querySelector(".footerLeft").addEventListener("click", () => {
   console.log("archimed");
-  window.open("https://www.archimed-ge.com/");
+window.open("https://www.archimed-ge.com/");
 });
