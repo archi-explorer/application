@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  position: absolute;
+  text-align: center;
+  top: 10%;
+  height: 80%;
+  width: 100%;
+  overflow-y: auto;
+  z-index: -100;
+}
+
+/*****************************
+        FORM
+*****************************/
+
+.form-container,
+.contact-info-container {
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+  width: 70%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.15);
+  background-color: azure;
+  transition-delay: 0.5ms; /* doesnt work, look for alternative */
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+} 
+
+input[type=text], input[type=email], input[type=tel]{
+  border : none;
+  /* border-bottom: 1px solid #4dc1ed; */
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4dc1ed;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* input.inpform*/
+input:focus, 
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow : none; /* non */
+  border-bottom: 1px solid #45a9d6;
+}
+
+input[type=submit]:hover {
+  background-color: #45a9d6;
+}
+
+textarea {
+  width: 100%;
+  resize : none;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+select {
+  width: 30%;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+.form-container p {
+  margin: 1%;
+}
+
+.invalid-message{
+  color: red;
+}
+
+.invalid-message::before{
+  content: "⚠";
+}
+

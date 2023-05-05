@@ -34,4 +34,6 @@ $router->map('DELETE', '/delete-model', 'model/delete-model');
 
 $router->map('POST', '/get-role', 'role/get-role');
 
+$router->map('GET', '/get-var', 'get-var');
+
 require './controller/api-ctrl.php';

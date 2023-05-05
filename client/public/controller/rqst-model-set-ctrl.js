@@ -24,7 +24,7 @@ class RequestModelSet {
         body: `model=${encodeURIComponent(this._model)}`,
       });
 
-      window.location.replace(
+      window.location.assign(
         "https://archi-explorer.com/poc/client/src/model_view.php"
       );
     } catch (error) {

@@ -294,53 +294,6 @@ function animate() {
 }
 animate();
 
-//-----------------------------------------------
-// Gestion des lien vers le header
-//-----------------------------------------------
-
-const log = document.querySelector(".login");
-log.addEventListener("click", () => {
-  console.log("login");
-  window.location.replace("http://archi-test.com/admin");
-});
-
-const modelChoosing = document.querySelector(".modelLink");
-modelChoosing.addEventListener("click", () => {
-  console.log("model");
-  window.location.replace("http://archi-test.com/model-chooser");
-});
-
-//-----------------------------------------------
-// Lien du footer
-//-----------------------------------------------
-
-/**
- * Lien vers FaceBook
- */
-document.querySelector("#faceBook").addEventListener("click", () => {
-  window.open("https://www.facebook.com/ArchimedGe");
-});
-
-/**
- * Lien vers Insta
- */
-document.querySelector("#instagram").addEventListener("click", () => {
-  window.open("https://www.instagram.com/archimedge");
-});
-
-/**
- * Lien vers LinkedIn
- */
-document.querySelector("#linkedIn").addEventListener("click", () => {
-  window.open("https://fr.linkedin.com/company/archimed-ge");
-});
-
-/**
- * Lien site groupe
- */
-document.querySelector(".footerLeft").addEventListener("click", () => {
-  window.open("https://www.archimed-ge.com/");
-});
 
 //-----------------------------------------------
 // Création d'un repère 3D pour l'application
@@ -483,7 +436,7 @@ function controlsUpdate(
 }
 
 /**
- * Tracage des mouvements de la souri
+ * Tracage des mouvements de la souris
  */
 function mouseMoove(e) {
   mouse.x = (e.clientX / renderer.domElement.clientWidth) * 2 - 1;

@@ -38,6 +38,7 @@ header {
   background-size: contain;
   background-position: left;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .contact {

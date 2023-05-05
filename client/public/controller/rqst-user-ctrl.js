@@ -42,7 +42,9 @@ class RequestAuth {
           },
           body: `user=${encodeURIComponent(
             data.user
-          )}&role=${encodeURIComponent(data.role)}`,
+          )}&role=${encodeURIComponent(data.role)}&email=${encodeURIComponent(
+            data.email
+          )}`,
         });
 
         console.log(data.status);
@@ -67,7 +69,7 @@ class RequestSignout {
       const req_client = new Request("http://archi-test.com/session-killed");
       await fetch(req_client);
 
-      window.location.replace("http://archi-test.com/login");
+      window.location.assign("http://archi-test.com/login");
     } catch (error) {
       console.log(error.message);
     }
@@ -79,7 +81,7 @@ class RequestgetUsers {
 
   async getUsers() {
     try {
-      const req = new Request(`${request}get-user`);
+      const req = new Request(`${request}get-users`);
       const response = await fetch(req);
       const data = await response.json();
 

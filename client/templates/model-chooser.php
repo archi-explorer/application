@@ -6,6 +6,11 @@ if (empty($_SESSION['user'])) {
     exit();
 }
 
+
+// if(isset($_SESSION['user'])) echo "\nuser : ".$_SESSION['user']."\n";
+// if(isset($_SESSION['email']))  echo "\nemail : ".$_SESSION['email']."\n";
+
+
 $pageTitle = "Choix du modèle";
 $pageName = "model-chooser";
 ?>

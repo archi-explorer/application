@@ -6,6 +6,11 @@ if ($_SESSION['role'] !== "admin") {
     exit();
 }
 
+
+// if(isset($_SESSION['user'])) echo "\nuser : ".$_SESSION['user']."\n";
+// if(isset($_SESSION['email']))  echo "\nemail : ".$_SESSION['email']."\n";
+
+
 $pageTitle = "Administrateur";
 $pageName = "admin";
 ?>
@@ -27,16 +32,47 @@ $pageName = "admin";
         </div>
         <button class="add-model">Ajouter un modèle</button>
     </div>
-    <p class="separator">--- UTILISATEUR ---</p>
+    
+    <!-- 
+    *********************************************************
+        GESTION
+    *********************************************************
+    -->
+
+
+    <p class="separator">--- GESTION DES RÔLES ET DES UTILISATEURS ---</p>
+
+
     <div class="user-container">
-        <ul class="user-list-container">
-            <li>
-                <p>--- UTILISATEUR ---</p>
-                <p>--- ROLE ---</p>
-                <p>--- EMAIL ---</p>
-                <p>--- MODIFICATION ---</p>
-            </li>
-        </ul>
+        <!-- onglets -->
+        <div class="onglets-container">
+            <div class="onglets active" data-anim="1">Table des utilisateurs</div>
+            <div class="onglets" data-anim="2">Table des rôles</div>
+        </div>
+        <!-- table des utilisateurs -->
+        <div class="contenu actifContenu" data-anim="1">
+            <ul class="user-list-container">
+                <li>
+                    <p>--- UTILISATEUR ---</p>
+                    <p>--- NOM ---</p>
+                    <p>--- ROLE ---</p>
+                    <p>--- EMAIL ---</p>
+                    <p>--- MODIFICATION ---</p>
+                </li>
+            </ul>
+        </div>
+        <!-- table des rôles -->
+        <div class="contenu" data-anim="2">
+            <ul class="role-list-container">
+                <li>
+                    <p>--- ID ---</p>
+                    <p>--- NOM ---</p>
+                </li>
+            </ul>
+        </div>
+
+
+        
         <button class="add-user">Ajouter un utilisateur</button>
     </div>
 </div>

@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// echo '<pre>'; print_r($_SESSION); echo '<pre>';
+
+
+// if(isset($_SESSION['user'])) echo "\nuser : ".$_SESSION['user']."\n";
+// if(isset($_SESSION['email']))  echo "\nemail : ".$_SESSION['email']."\n";
+
 $pageTitle = "Connexion";
 $pageName = "login";
 ?>
@@ -12,7 +18,7 @@ $pageName = "login";
         <div class="container">
             <div class="input-container">
                 <label for="login">Utilisateur</label>
-                <input type="text" placeholder="Entrez votre nom d'utilisateur" name="login" id="login" required />
+                <input type="text" placeholder="Entrez votre nom d'utilisateur" name="login" id="login" required /> 
                 <label for="psw">Mot de passe</label>
                 <input type="password" placeholder="Entrez votre mot de passe" name="psw" id="psw" required />
             </div>

@@ -29,6 +29,15 @@ try {
 
     $res = array('status' => true, 'user' => $login);
 
+    $_SESSION['user'] = $login;
+
+    if ($email = $user->getEmailFromId()) {
+        // echo 'Email in auth: ' . ($email) . '</br>';
+        $res += ['email' => $email];
+
+        $_SESSION['email'] = $email;
+    }
+
     try {
         require_once('model/Role.php');
 

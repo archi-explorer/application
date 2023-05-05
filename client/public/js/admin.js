@@ -1,6 +1,6 @@
 "use-strict";
 
-// import * as MODEL_LIST from "../controller/rqst-model-list-ctrl";
+import * as MODEL_LIST from "../controller/rqst-model-list-ctrl";
 import * as AUTH from "../controller/rqst-user-ctrl";
 
 /**
@@ -10,36 +10,38 @@ const modelUploadList = document.querySelector("#pickfile-model");
 const panoUploadList = document.querySelector("#pickfile-pano");
 const csvUploadList = document.querySelector("#pickfile-csv");
 
-// const model = new MODEL_LIST.RequestModelList(
-//   "sample-model",
-//   modelUploadList,
-//   "sample-panorama",
-//   panoUploadList,
-//   "sample-csv",
-//   csvUploadList
-// );
+const model = new MODEL_LIST.RequestModelList(
+  "sample-model",
+  modelUploadList,
+  "sample-panorama",
+  panoUploadList,
+  "sample-csv",
+  csvUploadList
+);
 
 /**
  * Génération de la liste des modèles
  */
 
-// const listModel = await model.getModel();
+const listModel = await model.getModel();
+const list = document.querySelector(".model-list-container");
 
-// const list = document.querySelector(".model-list-container");
+//on accède comme un tableau à listModel
 
-// let cities = [];
-
-// listModel.forEach((element) => {
-//   if (cities.includes(element.CITY)) {
-//     document.querySelector(
-//       `.${element.CITY}`
-//     ).innerHTML += `<li>model : ${element.MNAME}</li>`;
-//   } else {
-//     cities.push(element.CITY);
-
-//     list.innerHTML += `<details class="list" name="${element.CITY}"><summary>--- ${element.CITY} ---</summary><ul class="${element.CITY}"><li class="${element.MNAME}">model: ${element.MNAME}</li></ul></details>`;
-//   }
-// });
+let cities = [];
+listModel.forEach((element) => {
+  console.log("element dans listModel : "+element);
+  
+  if (cities.includes(element[2])) {
+    document.querySelector(
+      `.${element[2]}`
+    ).innerHTML += `<li>model : ${element[1]}</li>`;
+  } else {
+    cities.push(element[2]);
+  
+    list.innerHTML += `<details class="list" name="${element[2]}"><summary>--- ${element[2]} ---</summary><ul class="${element[2]}"><li class="${element[1]}">model: ${element[1]}</li></ul></details>`;
+  }
+});
 
 /**
  * Formulaire d'ajout d'un modèles
@@ -88,22 +90,33 @@ async function formUpload(city, role) {
  * Vue des utilisateurs
  */
 
-// const users = new AUTH.RequestgetUsers();
-// const usersList = await users.getUsers();
+// console.log("\n\nappelle le controller depuis admin");
+const users = new AUTH.RequestgetUsers();
+const usersList = await users.getUsers();
 
-// const listUser = document.querySelector(".user-list-container");
+// console.log("\n\nres usersList (dans admin):" + usersList + "\n\n");
+if(!usersList) {
+  // console.log("\n\npas de users, fonctionne pas côté serv");
+}
+else {
+  // console.log("\n\nuserslist existe, vide ou non? xxx:\n\n")
+  // console.log(usersList)
+const listUser = document.querySelector(".user-list-container");
 
-// usersList.forEach((user) => {
-//   listUser.innerHTML += `<li id="container-${user[0]}" class="">
-//   <p>${user[0]}</p>
-//   <p>${user[1]}</p>
-//   <p>${user[2]}</p>
-//   <div class="alter-bdd">
-//     <button class="modify-user" id="${user[0]}">Modifier</button>
-//     <button class="delete-user" id="${user[0]}">Supprimer</button>
-//   </div>
-//   </li>`;
-// });
+
+usersList.forEach((user) => { //gotta check if [3]
+  listUser.innerHTML += `<li id="container-${user[0]}" class="">
+  <p>${user[0]}</p>
+  <p>${user[1]}</p>
+  <p>${user[2]}</p>
+  <p>${user[3]}</p>
+  <div class="alter-bdd">
+    <button class="modify-user" id="${user[0]}">Modifier</button>
+    <button class="delete-user" id="${user[0]}">Supprimer</button>
+  </div>
+  </li>`;
+});
+}
 
 /**
  * Modification d'un utilisateur
@@ -356,9 +369,14 @@ function updateKO() {
   }, 5000);
 }
 
-/**
- * Lien dans le header
- */
+// import * as MAIL_CTRL from "../controller/rqst-user-send-email.js"
+
+//used to be called in function contact-button-click, redirected to layout.js
+// async function caller(){
+//   const sendEmailFromHome = new MAIL_CTRL.RequestEmailSent("monisieur","paolo","098654321","testdepuismail","jetestetouuuuuuutoutout");
+//   const stateSend = await sendEmailFromHome.sendEmail();
+//   console.log(stateSend);
+// }
 
 const signout = document.querySelector(".signout");
 console.log(signout);
@@ -368,40 +386,40 @@ signout.addEventListener("click", () => {
   auth.signout();
 });
 
-const modelChoosing = document.querySelector(".modelLink");
-modelChoosing.addEventListener("click", () => {
-  console.log("model");
-  window.location.replace("http://archi-test.com/model-chooser");
+
+
+
+const onglets = document.querySelectorAll(".onglets");
+const contenu = document.querySelectorAll(".contenu");
+
+let index = 0;
+
+onglets.forEach((onglet) => {
+  onglet.addEventListener("click", () => {
+    if(onglet.classList.contains("active")){
+      return;
+    }
+    else{
+      onglet.classList.add("active");
+    }
+
+    index = onglet.getAttribute("data-anim");
+    console.log(index);
+
+    for (var i = 0; i < onglets.length; i++) {
+      if (onglets[i].getAttribute("data-anim") != index) {
+        onglets[i].classList.remove("active");
+      }
+    }
+
+    for(var j = 0; j < contenu.length; j++){
+      if(contenu[j].getAttribute("data-anim") == index){
+        contenu[j].classList.add("actifContenu");
+      }
+      else{
+        contenu[j].classList.remove("actifContenu");
+      }
+    }
+  });
 });
 
-//-----------------------------------------------
-// Lien du footer
-//-----------------------------------------------
-
-/**
- * Lien vers FaceBook
- */
-document.querySelector("#faceBook").addEventListener("click", () => {
-  window.open("https://www.facebook.com/ArchimedGe");
-});
-
-/**
- * Lien vers Insta
- */
-document.querySelector("#instagram").addEventListener("click", () => {
-  window.open("https://www.instagram.com/archimedge");
-});
-
-/**
- * Lien vers LinkedIn
- */
-document.querySelector("#linkedIn").addEventListener("click", () => {
-  window.open("https://fr.linkedin.com/company/archimed-ge");
-});
-
-/**
- * Lien site groupe
- */
-document.querySelector(".footerLeft").addEventListener("click", () => {
-  window.open("https://www.archimed-ge.com/");
-});
