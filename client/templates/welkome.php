@@ -1,5 +1,4 @@
 <?php
-//RewriteRule ^(.*)$ /index.php?path=$1 [NC,L,QSA]
 $pageTitle = "Bienvenue";
 $pageName = "welkome";
 ?>

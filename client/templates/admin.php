@@ -7,9 +7,6 @@ if ($_SESSION['role'] !== "admin") {
 }
 
 
-// if(isset($_SESSION['user'])) echo "\nuser : ".$_SESSION['user']."\n";
-// if(isset($_SESSION['email']))  echo "\nemail : ".$_SESSION['email']."\n";
-
 
 $pageTitle = "Administrateur";
 $pageName = "admin";
