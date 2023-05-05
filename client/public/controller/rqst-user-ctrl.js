@@ -32,9 +32,9 @@ class RequestAuth {
       console.log(response);
 
       const data = await response.json();
-      console.log("data is (rqst-user-ctrl) : "+data);
+      console.log("data is (rqst-user-ctrl) : " + data);
       if (data.status && data.user && data.role) {
-        await fetch("http://archimed-sky.com/session-write", {
+        await fetch("http://archi-test.com/session-write", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -65,10 +65,10 @@ class RequestSignout {
       const req = new Request(`${request}signout`);
       await fetch(req);
 
-      const req_client = new Request("http://archimed-sky.com/session-killed");
+      const req_client = new Request("http://archi-test.com/session-killed");
       await fetch(req_client);
 
-      window.location.assign("http://archimed-sky.com/login");
+      window.location.assign("http://archi-test.com/login");
     } catch (error) {
       console.log(error.message);
     }
@@ -83,9 +83,6 @@ class RequestgetUsers {
       const req = new Request(`${request}get-users`);
       const response = await fetch(req);
       const data = await response.json();
-
-
-      
 
       console.log(data);
 
