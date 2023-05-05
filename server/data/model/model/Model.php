@@ -5,16 +5,12 @@ require_once("MySQLi.php");
 class Model
 {
     private $_mid;
-    private $_mname;
-    private $_mcity;
 
     const MODEL_TABLE = "Model";
 
-    public function __construct($mid = null, $mname = "", $mcity = "")
+    public function __construct($mid = null)
     {
         $this->setModelId($mid);
-        $this->setModelName($mname);
-        $this->setModelCity($mcity);
     }
 
     public function getModelId()
@@ -25,26 +21,6 @@ class Model
     public function setModelId($id)
     {
         $this->_mid = $id;
-    }
-
-    public function setModelName($id)
-    {
-        $this->_mid = $id;
-    }
-
-    public function getModelName()
-    {
-        return $this->_mid;
-    }
-
-    public function setModelCity($id)
-    {
-        $this->_mid = $id;
-    }
-
-    public function getModelCity()
-    {
-        return $this->_mid;
     }
 
     /**

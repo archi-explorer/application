@@ -10,13 +10,15 @@ $router->map('GET', '/get-users', 'user/get-users');
 $router->map('GET', '/get-uname', 'user/get-uname');
 $router->map('GET', '/signout', 'user/signout');
 
+
 $router->map('POST', '/authenticate', 'user/authenticate');
 $router->map('POST', '/add-user', 'user/add-user');
+$router->map('POST', '/send-email', 'user/send-email'); //new route for email
 
-$router->map('PUT', '/update-user', 'user/update-user');
-$router->map('PUT', '/update-psw', 'user/update-psw');
+$router->map('POST', '/update-user', 'user/update-user');
+$router->map('POST', '/update-psw', 'user/update-psw');
 
-$router->map('DELETE', '/delete-user', 'user/delete-user');
+$router->map('POST', '/delete-user', 'user/delete-user');
 
 // Route modèle
 
@@ -34,6 +36,5 @@ $router->map('DELETE', '/delete-model', 'model/delete-model');
 
 $router->map('POST', '/get-role', 'role/get-role');
 
-$router->map('GET', '/get-var', 'get-var');
 
-require './controller/api-ctrl.php';
+require './controller/api-ctrl.php'; //1 seul par router
