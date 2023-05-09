@@ -178,11 +178,13 @@ li:last-child {
   background-color: azure;
 }
 
-.user-list-container {
+.user-list-container, 
+.role-list-container {
   margin: 2%;
 }
 
-.user-list-container li > * {
+.user-list-container li > *,
+.role-list-container li > * {
   display: inline-block;
   width: 19%;
 }
@@ -249,10 +251,6 @@ https://www.youtube.com/watch?v=JuEL_R4T7uI
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
 }
-
-
-
-
 
 /*****************/
 /*****************/

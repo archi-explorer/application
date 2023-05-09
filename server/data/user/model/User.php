@@ -21,14 +21,6 @@ class User
         $this->setRoleId($role);
         $this->setEmail($email);
     }
-    // public function __construct($login, $uname, $psw = null, $role = null, $email = null)
-    // {
-    //     $this->setLogin($login);
-    //     $this->setUname($uname);
-    //     $this->setPsw($psw);
-    //     $this->setRoleId($role);
-    //     $this->setEmail($email);
-    // }
 
     public function getLogin()
     {
