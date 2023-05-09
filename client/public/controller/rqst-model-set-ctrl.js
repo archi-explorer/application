@@ -4,7 +4,7 @@
  * Module d'initialisation du modèle à afficher
  */
 
-const request = "http://archi-test.com/";
+const request = "http://archimed-sky.com/";
 
 class RequestModelSet {
   _model;

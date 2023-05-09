@@ -2,6 +2,7 @@
 
 import * as MODEL_LIST from "../controller/rqst-model-list-ctrl";
 import * as AUTH from "../controller/rqst-user-ctrl";
+import * as ROLE from "../controller/rqst-role-ctrl";
 
 /**
  * Génération de l'interface
@@ -117,6 +118,60 @@ usersList.forEach((user) => { //gotta check if [3]
   </li>`;
 });
 }
+
+/**
+ * Vue des roles
+ */
+
+
+const roles = new ROLE.RequestGetRoles();
+const rolesList = await roles.getRoles();
+
+if(rolesList){
+  const listRole = document.querySelector(".role-list-container");
+
+  rolesList.forEach((role) => {
+    listRole.innerHTML += `<li id="container-${role[0]}" class="">
+    <p>${role[0]}</p>
+    <p contenteditable="true" class="rname_li" id="${role[0]}">${role[1]}</p>
+   </li>`;
+  });
+}
+
+
+/**
+ * Modifications d'un role
+ */
+
+const editRNameList = document.querySelectorAll(".rname_li");
+var OGcontent;
+
+editRNameList.forEach((element) => {
+  element.addEventListener("focusin", (e) => {
+    OGcontent = e.target.innerHTML;
+  });
+
+  element.addEventListener("focusout", (e) => {
+    if (OGcontent != e.target.innerHTML) {
+      console.log("update role");
+      updateRoleName(element.id, e.target.innerHTML)
+    }
+    else{
+      console.log("we do nothing");
+    }
+  });
+});
+
+async function updateRoleName(rid, rname) {
+  const roleUpdate = new ROLE.RequestUpdateRole(rid, rname);
+  const roleStatus = await roleUpdate.updateRole();
+
+
+  if (!roleStatus) {
+    updateKO();
+  }
+}
+  
 
 /**
  * Modification d'un utilisateur
@@ -284,6 +339,11 @@ async function formDeleteUser(id) {
   }
 }
 
+
+
+
+
+
 /**
  * Comportement formulaire ajout utilisateur
  */
@@ -378,6 +438,10 @@ signout.addEventListener("click", () => {
 });
 
 
+
+/**
+ * Gestion des onglets utilisateurs et roles
+ */
 
 
 const onglets = document.querySelectorAll(".onglets");
