@@ -22,17 +22,35 @@ $pageName = "admin";
             <p class="signout">Déconnexion</p>
         </div>
     </div>
-    <p class="separator">--- MODELE ---</p>
+
+    <!-- 
+    *********************************************************
+        GESTION DES MODELES ET DES PERMISSIONS
+    *********************************************************
+    -->
+
+    <p class="separator">--- GESTION DES MODÈLES ET SES PERMISSIONS ---</p>
     <div class="model-container">
         <div class="model-list-container">
             <p>--- VILLE ---</p>
         </div>
+        <div class="model-list-container-2">
+            <ul class="model">
+                <li>
+                    <p>--- NOM ---</p>
+                    <p>--- VILLE ---</p>
+                    <p>--- TYPE ---</p>
+                    <p>--- PERMISSIONS ---</p>
+                    <p>--- MODIFICATION ---</p>
+                </li>
+            </ul>
+        </div>  
         <button class="add-model">Ajouter un modèle</button>
     </div>
     
     <!-- 
     *********************************************************
-        GESTION
+        GESTION DES RÔLES ET DES UTILISATEURS 
     *********************************************************
     -->
 
@@ -68,8 +86,6 @@ $pageName = "admin";
                 </li>
             </ul>
         </div>
-
-
         
         <button class="add-user contenu actifContenu" data-anim="1">Ajouter un utilisateur</button>
         <button class="add-newrole contenu" data-anim="2" hidden> Ajouter un rôle</button>
@@ -120,25 +136,6 @@ $pageName = "admin";
         <button type="submit" class="btn-add-role">Ajouter un rôle</button>
     </form>
 </div>
-
-
-<!-- 
-<div class="update-user-container">
-    <form action="" method="post" class="form-update-user">
-        <p>Modifier l'utilisateur</p>
-        <div class="input-container">
-            <label for="login">Utilisateur</label>
-            <input type="text" name="login" id="update-login">
-            <label for="email">Email</label>
-            <input type="text" name="email" id="update-email">
-            <label for="role">Role</label>
-            <input type="text" name="role" id="update-role">
-        </div>
-        <button type="submit" class="btn-update-user">Modifier l'utilisateur</button>
-        <p id="psw-form">Changer le mot de passe</p>
-    </form>
-</div> -->
-
 
 
 <div class="change-psw-container">

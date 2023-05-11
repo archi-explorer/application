@@ -36,20 +36,52 @@ const model = new MODEL_LIST.RequestModelList(
 const listModel = await model.getModel();
 const list = document.querySelector(".model-list-container");
 
-let cities = [];
+
+// 0 => id, 1 => name, 2 => city, 3 => role
+
+// let cities = [];
+// listModel.forEach((element) => {
+//   console.log("element dans listModel : "+element);
+  
+//   if (cities.includes(element[2])) {
+//     document.querySelector(
+//       `.${element[2]}`
+//     ).innerHTML += `<li>model : ${element[1]}</li>`;
+//   } else {
+//     cities.push(element[2]);
+  
+//     list.innerHTML += `<details class="list" name="${element[2]}"><summary>--- ${element[2]} ---</summary><ul class="${element[2]}"><li class="${element[1]}">model: ${element[1]}</li></ul></details>`;
+//   }
+// });
+
+const listModels = document.querySelector(".model-list-container-2");
+
 listModel.forEach((element) => {
-  console.log("element dans listModel : "+element);
+  // console.log("element dans listModel : "+element);
+  listModels.innerHTML += `<li id="container-${element[0]}" class="">
+  <p contenteditable="true" class="model-name" id=${element[0]}>${element[1]}</p>
+  <p contenteditable="true" class="model-city" id=${element[0]}>${element[2]}</p>
+  <p contenteditable="true" class="model-type" id=${element[0]}></p>`
+
+  var listPermissions = `<p class="model-permissions" id=${element[0]}>`
+  console.log("element[3] : "+element[3]);
+  //not foreach, but split into array
+  const roleArray = element[3].split(",");
+  roleArray.forEach((role) => {
+    listPermissions += `${role}<br>`
+  });
+
+  listPermissions += `</p>`
+  listModels.innerHTML += listPermissions
+
+  listModels.innerHTML += `<div class="alter-bdd">
+    <button class="modify-model-permissions" id="${element[0]}">Modifier</button>
+    <button class="delete-model" id="${element[0]}">Supprimer</button>
+  </div>`
   
-  if (cities.includes(element[2])) {
-    document.querySelector(
-      `.${element[2]}`
-    ).innerHTML += `<li>model : ${element[1]}</li>`;
-  } else {
-    cities.push(element[2]);
-  
-    list.innerHTML += `<details class="list" name="${element[2]}"><summary>--- ${element[2]} ---</summary><ul class="${element[2]}"><li class="${element[1]}">model: ${element[1]}</li></ul></details>`;
-  }
 });
+
+
 
 /**
  * Formulaire d'ajout d'un modèles

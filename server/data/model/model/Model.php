@@ -9,6 +9,8 @@ class Model
     private $_mcity;
 
     const MODEL_TABLE = "Model";
+    const ROLE_TABLE = "Role";
+
 
     public function __construct($mid = null, $mname = "", $mcity = "")
     {
@@ -60,7 +62,10 @@ class Model
             exit(1);
         }
 
-        if ($stmt = $con->prepare('SELECT * FROM ' . self::MODEL_TABLE)) {
+        if (
+            // $stmt = $con->prepare('SELECT * FROM ' . self::MODEL_TABLE)
+            $stmt = $con->prepare('SELECT m.id, m.mname, m.mcity, r.rname FROM ' . self::MODEL_TABLE . ' m INNER JOIN ' . self::ROLE_TABLE . ' r ON m.r_id = r.id')
+            ) {
             $stmt->execute();
 
             if (!$stmt)
