@@ -1,6 +1,7 @@
 "use-strict";
 
 import * as AUTH from "../controller/rqst-user-ctrl";
+import * as EMAIL from "../controller/rqst-user-send-email";
 
 const form = document.querySelector("#login-form");
 
@@ -16,7 +17,7 @@ form.addEventListener("submit", (e) => {
 });
 
 document.querySelector("#forgot-mdp").addEventListener("click", () => {
-  console.log("mdp oublié");
+  // console.log("mdp oublié");
 });
 
 //----------------------------------------------
