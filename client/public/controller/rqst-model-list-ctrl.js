@@ -8,7 +8,7 @@ class RequestModelList {
   // _csvUploader;
 
   constructor(modelBtn, modelList, panoBtn, panoList, csvBtn, csvList) {
-    console.log(modelList, panoList, csvList); 
+    console.log(modelList, panoList, csvList);
 
     // this._modelUploader = this.initUploader(modelBtn, modelList);
     // this._panoUploader = this.initUploader(panoBtn, panoList);

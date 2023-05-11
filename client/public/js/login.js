@@ -15,6 +15,10 @@ form.addEventListener("submit", (e) => {
   // callit();
 });
 
+document.querySelector("#forgot-mdp").addEventListener("click", () => {
+  console.log("mdp oublié");
+});
+
 //----------------------------------------------
 // Fonction de mise vérification du mdp et du login
 //----------------------------------------------
