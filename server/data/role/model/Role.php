@@ -80,12 +80,31 @@ class Role
         return "no role found";
     }
 
-    public function addRole(string $rname)
+    public function addNewRole()
     {
-        if ($this->exists())
-            return false;
+        $con = MonSQLi::sqli();
+
+        if (mysqli_connect_errno()) {
+            exit(1);
+        }
+
+        if ($stmt = $con->prepare('INSERT INTO ' . self::ROLE_TABLE . ' (rname) VALUES (?)')) {
+            $stmt->bind_param("s", $this->_rname);
+            $stmt->execute();
+
+            if (!$stmt) {
+                throw new Exception("Error: no role added in DB");
+                return false;
+            }
+
+            if ($stmt->affected_rows == 0)
+                return false;
+
+            return true;
+        }
 
         return false;
+        
     }
 
     public function updateRole(){
@@ -113,8 +132,28 @@ class Role
         return false;
     }
 
-    public function deleteRole(int $rid)
+    public function deleteRole()
     {
+        $con = MonSQLi::sqli();
+
+        if (mysqli_connect_errno()) {
+            exit(1);
+        }
+
+        if ($stmt = $con->prepare('DELETE FROM ' . self::ROLE_TABLE . ' WHERE id = ?')) {
+            $stmt->bind_param("s", $this->_rid);
+            $stmt->execute();
+
+            if (!$stmt) {
+                throw new Exception("Error: no role deleted in DB");
+                return false;
+            }
+
+            if ($stmt->affected_rows == 0)
+                return false;
+
+            return true;
+        }
         return false;
     }
 

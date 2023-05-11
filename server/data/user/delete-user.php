@@ -11,10 +11,10 @@ header('Access-Control-Allow-Headers: X-Requested-With');
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
     exit(1);
 
-if (empty($_POST['uname']))
+if (empty($_POST['login']))
     exit(1);
 
-$login = htmlspecialchars($_POST['uname']);
+$login = htmlspecialchars($_POST['login']);
 
 require_once('model/User.php');
 

@@ -17,6 +17,9 @@ $router->map('POST', '/send-email', 'user/send-email'); //new route for email
 
 $router->map('POST', '/update-user', 'user/update-user');
 $router->map('POST', '/update-psw', 'user/update-psw');
+$router->map('POST', '/update-user-role', 'user/update-user-role');
+$router->map('POST', '/update-user-username', 'user/update-user-username');
+$router->map('POST', '/update-user-email', 'user/update-user-email');
 
 $router->map('POST', '/delete-user', 'user/delete-user');
 
@@ -37,6 +40,8 @@ $router->map('DELETE', '/delete-model', 'model/delete-model');
 $router->map('POST', '/get-role', 'role/get-role');
 $router->map('GET', '/get-roles', 'role/get-roles');
 
+$router->map('POST', '/add-role', 'role/add-role');
+$router->map('POST', '/delete-role', 'role/delete-role');
 $router->map('POST', '/update-role', 'role/update-role');
 
 

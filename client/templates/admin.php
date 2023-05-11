@@ -59,18 +59,20 @@ $pageName = "admin";
             </ul>
         </div>
         <!-- table des rôles -->
-        <div class="contenu" data-anim="2">
+        <div class="contenu" data-anim="2" hidden>
             <ul class="role-list-container">
                 <li>
                     <p>--- ID ---</p>
                     <p>--- NOM ---</p>
+                    <p>--- MODIFICATION ---</p>
                 </li>
             </ul>
         </div>
 
 
         
-        <button class="add-user">Ajouter un utilisateur</button>
+        <button class="add-user contenu actifContenu" data-anim="1">Ajouter un utilisateur</button>
+        <button class="add-newrole contenu" data-anim="2" hidden> Ajouter un rôle</button>
     </div>
 </div>
 
@@ -108,6 +110,19 @@ $pageName = "admin";
     </form>
 </div>
 
+<div class="add-role-container">
+    <form action="" method="post" class="form-add-role">
+        <p>Ajouter un rôle</p>
+        <div class="input-container">
+            <label for="role">Role</label>
+            <input type="text" name="role" placeholder="Entrez le nom du rôle" id="role-name">
+        </div>
+        <button type="submit" class="btn-add-role">Ajouter un rôle</button>
+    </form>
+</div>
+
+
+<!-- 
 <div class="update-user-container">
     <form action="" method="post" class="form-update-user">
         <p>Modifier l'utilisateur</p>
@@ -122,7 +137,9 @@ $pageName = "admin";
         <button type="submit" class="btn-update-user">Modifier l'utilisateur</button>
         <p id="psw-form">Changer le mot de passe</p>
     </form>
-</div>
+</div> -->
+
+
 
 <div class="change-psw-container">
     <form action="" method="post" class="form-change-psw">

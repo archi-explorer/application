@@ -9,9 +9,9 @@ header('Access-Control-Allow-Headers: X-Requested-With');
 //     exit(1);
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
-    echo ("meth");
+    exit(1);
 
-$login = htmlspecialchars($_POST['uname']);
+$login = htmlspecialchars($_POST['login']);
 $nPsw = htmlspecialchars($_POST['newPsw']);
 
 require_once('model/User.php');

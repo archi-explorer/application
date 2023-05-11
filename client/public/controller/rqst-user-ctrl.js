@@ -51,6 +51,7 @@ class RequestAuth {
         console.log(data.user);
         return true;
       }
+      // return data;
     } catch (error) {
       console.log(error.message);
       return false;
@@ -95,13 +96,13 @@ class RequestgetUsers {
 }
 
 class RequestCreateUser {
-  _uname;
+  _login;
   _psw;
   _role;
   _email;
 
-  constructor(uname, psw, role, email) {
-    this._uname = uname;
+  constructor(login, psw, role, email) {
+    this._login = login;
     this._psw = psw;
     this._role = role;
     this._email = email;
@@ -115,8 +116,8 @@ class RequestCreateUser {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
-        body: `uname=${encodeURIComponent(
-          this._uname
+        body: `login=${encodeURIComponent(
+          this._login
         )}&psw=${encodeURIComponent(this._psw)}&role=${encodeURIComponent(
           this._role
         )}&email=${encodeURIComponent(this._email)}`,
@@ -132,10 +133,10 @@ class RequestCreateUser {
 }
 
 class RequestDeleteUser {
-  _uname;
+  _login;
 
-  constructor(uname) {
-    this._uname = uname;
+  constructor(login) {
+    this._login = login;
   }
 
   async deleteUser() {
@@ -146,7 +147,7 @@ class RequestDeleteUser {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
-        body: `uname=${encodeURIComponent(this._uname)}`,
+        body: `login=${encodeURIComponent(this._login)}`,
       });
       const data = await response.json();
 
@@ -159,14 +160,14 @@ class RequestDeleteUser {
 }
 
 class RequestUpdateUser {
-  _mname;
-  _newMname;
+  _login;
+  _newName;
   _newRole;
   _newEmail;
 
-  constructor(mname, newMname, newRole, newEmail) {
-    this._mname = mname;
-    this._newMname = newMname;
+  constructor(login, newName, newRole, newEmail) {
+    this._login = login;
+    this._newName = newName;
     this._newRole = newRole;
     this._newEmail = newEmail;
   }
@@ -179,10 +180,10 @@ class RequestUpdateUser {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
-        body: `uname=${encodeURIComponent(
-          this._mname
-        )}&newUname=${encodeURIComponent(
-          this._newMname
+        body: `login=${encodeURIComponent(
+          this._login
+        )}&newName=${encodeURIComponent(
+          this._newName
         )}&newRole=${encodeURIComponent(
           this._newRole
         )}&newEmail=${encodeURIComponent(this._newEmail)}`,
@@ -195,12 +196,108 @@ class RequestUpdateUser {
   }
 }
 
+class RequestUpdateRoleById {
+  _login;
+  _newRole;
+
+  constructor(login, newRole) {
+    this._login = login;
+    this._newRole = newRole;
+  }
+
+  async updateRoleById() {
+    try {
+      const req = new Request(`${request}update-user-role`);
+      const response = await fetch(req, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: `login=${encodeURIComponent(
+          this._login
+        )}&newRole=${encodeURIComponent(this._newRole)}`,
+      });
+      const data = await response.json();
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+class RequestUpdateEmail {
+  _login;
+  _newEmail;
+
+  constructor(login, newEmail) {
+    this._login = login;
+    this._newEmail = newEmail;
+  }
+
+  async updateEmail() {
+    try {
+      const req = new Request(`${request}update-user-email`);
+      const response = await fetch(req, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: `login=${encodeURIComponent(
+          this._login
+        )}&newEmail=${encodeURIComponent(this._newEmail)}`,
+      });
+      const data = await response.json();
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+    
+
+    
+
+class RequestUpdateUsername {
+  _login;
+  _newName;
+
+  constructor(login, newName) {
+    this._login = login;
+    this._newName = newName;
+  }
+
+  async updateUsername() {
+    try {
+      const req = new Request(`${request}update-user-username`);
+      const response = await fetch(req, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: `login=${encodeURIComponent(
+          this._login
+        )}&newName=${encodeURIComponent(this._newName)}`,
+      });
+      const data = await response.json();
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
 class RequestUpdatePsw {
-  _mname;
+  _login;
   _newPsw;
 
-  constructor(mname, nPsw) {
-    this._mname = mname;
+  constructor(login, nPsw) {
+    this._login = login;
     this._newPsw = nPsw;
   }
 
@@ -208,14 +305,14 @@ class RequestUpdatePsw {
     console.log("start update");
     try {
       const req = new Request(`${request}update-psw`);
-      console.log(this._mname, this._newPsw);
+      console.log(this._login, this._newPsw);
       const response = await fetch(req, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
-        body: `uname=${encodeURIComponent(
-          this._mname
+        body: `login=${encodeURIComponent(
+          this._login
         )}&newPsw=${encodeURIComponent(this._newPsw)}`,
       });
       const data = await response.json();
@@ -237,4 +334,7 @@ export {
   RequestDeleteUser,
   RequestUpdateUser,
   RequestUpdatePsw,
+  RequestUpdateRoleById,
+  RequestUpdateUsername,
+  RequestUpdateEmail,
 };

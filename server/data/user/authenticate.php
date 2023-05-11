@@ -19,7 +19,7 @@ $psw = htmlspecialchars($_POST['psw']);
 
 require_once('model/User.php');
 
-$user = new User($login, "", $psw, null, "");
+$user = new User($login, "", $psw, "", "");
 
 try {
     if (!$rid = $user->exists()) {

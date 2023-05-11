@@ -12,18 +12,18 @@ header('Access-Control-Allow-Headers: X-Requested-With');
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
     exit(1);
 
-if (empty($_POST['uname']) || empty($_POST['psw'] || empty($_POST['role']) || empty($_POST['email'])))
+if (empty($_POST['login']) || empty($_POST['psw'] || empty($_POST['role']) || empty($_POST['email'])))
     exit(1);
 
-$login = htmlspecialchars($_POST['uname']);
-$uname = htmlspecialchars($_POST['uname']);
+$login = htmlspecialchars($_POST['login']);
+$name = htmlspecialchars($_POST['login']);
 $psw = htmlspecialchars($_POST['psw']);
 $role = htmlspecialchars($_POST['role']);
 $email = htmlspecialchars($_POST['email']);
 
 require_once('model/User.php');
 
-$user = new User($login, $uname, $psw, $role, $email);
+$user = new User($login, $name, $psw, $role, $email);
 
 try {
     if (!$user->create()) {

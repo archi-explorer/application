@@ -4,6 +4,15 @@ import * as MODEL_LIST from "../controller/rqst-model-list-ctrl";
 import * as AUTH from "../controller/rqst-user-ctrl";
 import * as ROLE from "../controller/rqst-role-ctrl";
 
+
+
+/**
+ * 
+ * PARTIE MODELE
+ * 
+ */
+
+
 /**
  * Génération de l'interface
  */
@@ -26,8 +35,6 @@ const model = new MODEL_LIST.RequestModelList(
 
 const listModel = await model.getModel();
 const list = document.querySelector(".model-list-container");
-
-//on accède comme un tableau à listModel
 
 let cities = [];
 listModel.forEach((element) => {
@@ -87,74 +94,113 @@ async function formUpload(city, role) {
   }
 }
 
+
+
 /**
- * Vue des utilisateurs
+ * 
+ * PARTIE UTLISATEURS (ET ROLES)
+ * 
  */
 
-// console.log("\n\nappelle le controller depuis admin");
+
+/**
+ * Vue des utilisateurs && roles (MIXED BECAUSE OF DROPDOWN)
+ */
+
+// USERS
 const users = new AUTH.RequestgetUsers();
 const usersList = await users.getUsers();
 
-// console.log("\n\nres usersList (dans admin):" + usersList + "\n\n");
-if(!usersList) {
-  // console.log("\n\npas de users, fonctionne pas côté serv");
-}
-else {
-  // console.log("\n\nuserslist existe, vide ou non? xxx:\n\n")
-  // console.log(usersList)
-const listUser = document.querySelector(".user-list-container");
-
-
-usersList.forEach((user) => { //gotta check if [3]
-  listUser.innerHTML += `<li id="container-${user[0]}" class="">
-  <p>${user[0]}</p>
-  <p>${user[1]}</p>
-  <p>${user[2]}</p>
-  <p>${user[3]}</p>
-  <div class="alter-bdd">
-    <button class="modify-user" id="${user[0]}">Modifier</button>
-    <button class="delete-user" id="${user[0]}">Supprimer</button>
-  </div>
-  </li>`;
-});
-}
-
-/**
- * Vue des roles
- */
-
-
+//ROLES
 const roles = new ROLE.RequestGetRoles();
 const rolesList = await roles.getRoles();
 
-if(rolesList){
+if(usersList && rolesList){
+  const listUser = document.querySelector(".user-list-container");
+  
+
+  //0 => login, 1 => name, 2 => role, 3 => email
+  usersList.forEach((user) => { //gotta check if [3]
+    listUser.innerHTML += `<li id="container-${user[0]}" class="">
+    <p>${user[0]}</p>
+    <p contenteditable="true" class="user-username" id="${user[0]}">${user[1]}</p>
+    
+    <select class="user-role-select" id="${user[0]}">
+    ${rolesList.map((role) => {
+      if(role[1] == user[2])
+        return `<option value="${role[0]}" selected="selected">${role[1]}</option>`;
+      else
+        return `<option value="${role[0]}">${role[1]}</option>`;
+    })}
+    </select>
+
+    <p contenteditable="true" class="user-email" id="${user[0]}">${user[3]}</p>
+
+    <div class="alter-bdd">
+      <button class="modify-user" id="${user[0]}">Changer Password</button>
+      <button class="delete-user" id="${user[0]}">Supprimer</button>
+    </div>
+    </li>`;
+  });
+
+
   const listRole = document.querySelector(".role-list-container");
 
   rolesList.forEach((role) => {
     listRole.innerHTML += `<li id="container-${role[0]}" class="">
     <p>${role[0]}</p>
-    <p contenteditable="true" class="rname_li" id="${role[0]}">${role[1]}</p>
+    <p contenteditable="true" class="role-rname" id="${role[0]}">${role[1]}</p>
+    <div class="alter-bdd">
+      <button class="delete-role" id="${role[0]}">Supprimer</button>
+    </div>
    </li>`;
   });
 }
 
 
+//select est rempli, maintenant on ajoute la requete qui changera dans la bdd la valeur du role
+const roleSelectList = document.querySelectorAll(".user-role-select");
+
+roleSelectList.forEach((element) => {
+  const OGuserRole = element.value;
+  element.addEventListener("change", (e) => {
+    if(confirm("Voulez-vous vraiment changer le role de l'utilisateur ?")){
+      updateUserRoleById(element.id, element.value);
+      location.reload();
+    }
+    else
+      element.value = OGuserRole;
+  });
+});
+
+async function updateUserRoleById(username, roleid) {
+  const userRoleUpdate = new AUTH.RequestUpdateRoleById(username, roleid);
+  const userRoleStatus = await userRoleUpdate.updateRoleById();
+
+  if (!userRoleStatus) {
+    updateKO();
+  }
+}
+
+
 /**
- * Modifications d'un role
+ * Modification du nom d'un utilisateur
  */
 
-const editRNameList = document.querySelectorAll(".rname_li");
-var OGcontent;
+const editUsernameList = document.querySelectorAll(".user-username");
+var OGname;
 
-editRNameList.forEach((element) => {
+editUsernameList.forEach((element) => {
   element.addEventListener("focusin", (e) => {
-    OGcontent = e.target.innerHTML;
+    OGname = e.target.innerHTML;
   });
 
   element.addEventListener("focusout", (e) => {
-    if (OGcontent != e.target.innerHTML) {
-      console.log("update role");
-      updateRoleName(element.id, e.target.innerHTML)
+    if (OGname != e.target.innerHTML) {
+      if(confirm("Voulez-vous vraiment changer le nom d'utilisateur ?"))
+        updateUsername(element.id, e.target.innerHTML)
+      else
+        e.target.innerHTML = OGname;
     }
     else{
       console.log("we do nothing");
@@ -162,100 +208,57 @@ editRNameList.forEach((element) => {
   });
 });
 
-async function updateRoleName(rid, rname) {
-  const roleUpdate = new ROLE.RequestUpdateRole(rid, rname);
-  const roleStatus = await roleUpdate.updateRole();
+async function updateUsername(username, name) {
+  const usernameUpdate = new AUTH.RequestUpdateUsername(username, name);
+  const usernameStatus = await usernameUpdate.updateUsername();
 
-
-  if (!roleStatus) {
+  if (!usernameStatus) {
     updateKO();
   }
 }
-  
+
 
 /**
- * Modification d'un utilisateur
+ * Modification d'un email d'un user
  */
 
-// Valeur des modifications
-const updateUname = document.querySelector("#update-login");
-const updateEmail = document.querySelector("#update-email");
-const updateRole = document.querySelector("#update-role");
+const editEmailList = document.querySelectorAll(".user-email");
+var OGemail;
 
-let curentUname;
+editEmailList.forEach((element) => {
+  element.addEventListener("focusin", (e) => {
+    OGemail = e.target.innerHTML;
+  });
 
-const btnModifyUser = document.querySelectorAll(".modify-user");
-// console.log(btnModifyUser);
-const modifyUser = document.querySelector(".update-user-container");
-
-window.addEventListener("click", (e) => {
-  if (e.target == modifyUser) {
-    modifyUser.style.display = "none";
-
-    updateUname.value = "";
-    updateRole.value = "";
-    updateEmail.value = "";
-  }
-});
-
-btnModifyUser.forEach((element) => {
-  // console.log(element);
-  element.addEventListener("click", () => {
-    // console.log(element.id);
-    const elemToModif = document.querySelectorAll(`#container-${element.id} p`);
-    console.log(elemToModif);
-
-    updateUname.value = elemToModif[0].innerHTML;
-    updateEmail.value = elemToModif[2].innerHTML;
-    updateRole.value = elemToModif[1].innerHTML;
-
-    curentUname = elemToModif[0].innerHTML;
-
-    modifyUser.style.display = "flex";
+  element.addEventListener("focusout", (e) => {
+    if (OGemail != e.target.innerHTML) {
+      if(confirm("Voulez-vous vraiment changer l'email de l'utilisateur?"))
+        updateEmailFromId(element.id, e.target.innerHTML)
+      else
+        e.target.innerHTML = OGemail;
+    }
+    else{
+      console.log("we do nothing");
+    }
   });
 });
 
-/**
- * Formulaire modification d'un utilisateur
- */
+async function updateEmailFromId(username, email) {
+  const emailUpdate = new AUTH.RequestUpdateEmail(username, email);
+  const emailStatus = await emailUpdate.updateEmail();
 
-const formUpdate = document.querySelector(".update-user-container");
-formUpdate.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  modifyUser.style.display = "none";
-
-  formUpdateUser(
-    curentUname,
-    updateUname.value,
-    updateRole.value,
-    updateEmail.value
-  );
-
-  updateUname.value = "";
-  updateRole.value = "";
-  updateEmail.value = "";
-});
-
-async function formUpdateUser(uname, nUname, nRole, nEmail) {
-  const update = new AUTH.RequestUpdateUser(uname, nUname, nRole, nEmail);
-  const stateUpdate = await update.updateUser();
-
-  console.log(stateUpdate);
-
-  if (stateUpdate) {
-    location.reload();
-    updateOK();
-  } else {
+  if (!emailStatus) {
     updateKO();
   }
 }
+
 
 /**
  * Changement du mot de passse
  */
 
-const btnChangePsw = document.querySelector("#psw-form");
+const btnChangePsw = document.querySelectorAll(".modify-user");
+console.log("these are the buttons : \n"+ btnChangePsw);
 const pswChangeContainer = document.querySelector(".change-psw-container");
 
 const nPsw = document.querySelector("#update-psw");
@@ -269,13 +272,13 @@ window.addEventListener("click", (e) => {
     nPswConf.value = "";
   }
 });
-// console.log(changePsw);
-btnChangePsw.addEventListener("click", () => {
-  modifyUser.style.display = "none";
 
-  pswChangeContainer.style.display = "flex";
-  nPsw.value = "";
-  nPswConf.value = "";
+btnChangePsw.forEach((element) => {
+  element.addEventListener("click", () =>  {
+    pswChangeContainer.style.display = "flex";
+    nPsw.value = "";
+    nPswConf.value = "";
+  });
 });
 
 /**
@@ -289,16 +292,16 @@ formPsw.addEventListener("submit", (e) => {
   pswChangeContainer.style.display = "none";
 
   if (nPsw.value === nPswConf.value) {
-    formModifPsw(curentUname, nPsw.value);
+    formModifPsw(currentUname, nPsw.value);
   }
 
   nPsw.value = "";
   nPswConf.value = "";
 });
 
-async function formModifPsw(uname, nPsw) {
+async function formModifPsw(username, nPsw) {
   console.log("update");
-  const update = new AUTH.RequestUpdatePsw(uname, nPsw);
+  const update = new AUTH.RequestUpdatePsw(username, nPsw);
   const updateStatu = await update.updatePsw();
 
   if (updateStatu) {
@@ -315,17 +318,15 @@ async function formModifPsw(uname, nPsw) {
 const confDelUser = false;
 
 const deleteUser = document.querySelectorAll(".delete-user");
-// console.log(deleteUser);
 
 deleteUser.forEach((element) => {
-  // console.log(element);
   element.addEventListener("click", () => {
-    formDeleteUser(element.id);
+    if(confirm("Voulez-vous vraiment supprimer l'utilisateur ?"))
+      formDeleteUser(element.id);
   });
 });
 
 async function formDeleteUser(id) {
-  // console.log(element.id);
   const del = new AUTH.RequestDeleteUser(id);
   const statDel = await del.deleteUser();
 
@@ -338,10 +339,6 @@ async function formDeleteUser(id) {
     updateKO();
   }
 }
-
-
-
-
 
 
 /**
@@ -407,6 +404,134 @@ async function formAddUserSubmit() {
   }
 }
 
+
+
+/**
+ * 
+ * PARTIE ROLE
+ * 
+ */
+
+
+/**
+ * Ajout d'un role
+ */
+
+
+const btnAddRole = document.querySelector(".add-newrole");
+const addRole = document.querySelector(".add-role-container");
+
+btnAddRole.addEventListener("click", () => {
+  console.log("ajout role");
+  addRole.style.display = "flex";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target == addRole) {
+    addRole.style.display = "none";
+  }
+});
+
+
+/**
+ * Formulaire d'ajout d'un nouveau role
+ */
+
+const formAddRole = document.querySelector(".form-add-role");
+formAddRole.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  formAddRoleSubmit();
+});
+
+async function formAddRoleSubmit() {
+  const rname = document.querySelector("#role-name");
+
+  addRole.style.display = "none";
+
+  const newRole = new ROLE.RequestCreateRole(rname.value);
+  const state = await newRole.createRole();
+
+  rname.value = "";
+
+  if (state) {
+    updateOK();
+  } else {
+    updateKO();
+  }
+}
+
+
+
+/**
+ * Modifications d'un role (role name dans la table role)
+ */
+
+const editRNameList = document.querySelectorAll(".role-rname");
+var OGcontent;
+
+editRNameList.forEach((element) => {
+  element.addEventListener("focusin", (e) => {
+    OGcontent = e.target.innerHTML;
+  });
+
+  element.addEventListener("focusout", (e) => {
+    if (OGcontent != e.target.innerHTML) {
+      if(confirm("Voulez-vous vraiment changer le nom du role ?"))
+        updateRoleName(element.id, e.target.innerHTML)
+      else
+        e.target.innerHTML = OGcontent;
+    }
+    else{
+      console.log("we do nothing");
+    }
+  });
+});
+
+async function updateRoleName(roleid, rname) {
+  const roleUpdate = new ROLE.RequestUpdateRole(roleid, rname);
+  const roleStatus = await roleUpdate.updateRole();
+
+  if (!roleStatus) {
+    updateKO();
+  }
+}
+  
+
+
+
+/**
+ * Suppression d'un role
+ */
+
+const btnDelRole = document.querySelectorAll(".delete-role");
+
+btnDelRole.forEach((element) => {
+  element.addEventListener("click", () => {
+    if(confirm("Voulez-vous vraiment supprimer le role ?"))
+      formDeleteRole(element.id);
+  });
+});
+
+async function formDeleteRole(id) {
+  const del = new ROLE.RequestDeleteRole(id);
+  const statDel = await del.deleteRole();
+
+  if (statDel) {
+    updateOK();
+  } else {
+    updateKO();
+  }
+}
+
+
+/**
+ * 
+ * PARTIE POPUPS
+ * 
+ */
+
+
 /**
  * Pop up d'état de la mise à jour
  */
@@ -439,6 +564,14 @@ signout.addEventListener("click", () => {
 
 
 
+
+/**
+ * 
+ * PARTIE ONGLETS
+ * 
+ */
+
+
 /**
  * Gestion des onglets utilisateurs et roles
  */
@@ -452,10 +585,13 @@ let index = 0;
 onglets.forEach((onglet) => {
   onglet.addEventListener("click", () => {
     if(onglet.classList.contains("active")){
+      
       return;
     }
     else{
       onglet.classList.add("active");
+      //appelle a nouveau le get
+
     }
 
     index = onglet.getAttribute("data-anim");
@@ -469,10 +605,13 @@ onglets.forEach((onglet) => {
 
     for(var j = 0; j < contenu.length; j++){
       if(contenu[j].getAttribute("data-anim") == index){
+        contenu[j].style.display = "block";
         contenu[j].classList.add("actifContenu");
       }
       else{
+        contenu[j].style.display = "none";
         contenu[j].classList.remove("actifContenu");
+
       }
     }
   });

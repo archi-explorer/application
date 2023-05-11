@@ -198,7 +198,7 @@ li:last-child {
   cursor: pointer;
 }
 
-.add-user {
+.add-user, .add-newrole {
   width: 40%;
   border: none;
   background-color: #4dc1ed;
@@ -321,7 +321,8 @@ https://www.youtube.com/watch?v=JuEL_R4T7uI
 /* Form ajout utilisateur */
 /**************************/
 
-.add-user-container {
+.add-user-container,
+.add-role-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -335,7 +336,8 @@ https://www.youtube.com/watch?v=JuEL_R4T7uI
   overflow-y: auto;
 }
 
-.form-add-user {
+.form-add-user,
+.form-add-role {
   justify-content: center;
   align-items: center;
   width: 25%;
@@ -347,12 +349,14 @@ https://www.youtube.com/watch?v=JuEL_R4T7uI
   border-radius: 5px;
 }
 
-.form-add-user p {
+.form-add-user p,
+.form-add-role p {
   margin-bottom: 10px;
   font-size: large;
 }
 
-.form-add-user input {
+.form-add-user input,
+.form-add-role input{
   width: 75%;
   margin: 3px 10px 10px 10px;
   border-radius: 5px;
@@ -375,7 +379,8 @@ https://www.youtube.com/watch?v=JuEL_R4T7uI
   opacity: 0.7;
 }
 
-.btn-add-user {
+.btn-add-user,
+.btn-add-role {
   background-color: #4dc1ed;
   border-radius: 17px;
   border: none;

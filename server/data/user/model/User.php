@@ -4,8 +4,8 @@ require_once("MySQLi.php");
 
 class User
 {
-    private $_login;
-    private $_uname;
+    private $_login; //ou login
+    private $_name;
     private $_psw;
     private $_rid;
     private $_email;
@@ -13,10 +13,10 @@ class User
     const USER_TABLE = "User";
     const ROLE_TABLE = "Role";
 
-    public function __construct($login, $uname = null, $psw = null, $role = null, $email = null)
+    public function __construct($login, $name = null, $psw = null, $role = null, $email = null)
     {
         $this->setLogin($login);
-        $this->setUname($uname);
+        $this->setName($name);
         $this->setPsw($psw);
         $this->setRoleId($role);
         $this->setEmail($email);
@@ -27,19 +27,19 @@ class User
         return $this->_login;
     }
 
-    public function setLogin($log)
+    public function setLogin($login)
     {
-        $this->_login = $log;
+        $this->_login = $login;
     }
 
-    public function getUname()
+    public function getName()
     {
-        return $this->_uname;
+        return $this->_name;
     }
 
-    public function setUname($uname)
+    public function setName($name)
     {
-        $this->_uname = $uname;
+        $this->_name = $name;
     }
 
     public function getPsw()
@@ -80,18 +80,34 @@ class User
             echo ("connection error");
             exit(1);
         }
-
         // Préparation de la requête
         if ($stmt = $con->prepare('SELECT psw, r_id FROM ' . self::USER_TABLE . ' WHERE login = ?')) {
             // On assigne la variable login
-            $stmt->bind_param("s", $this->_login);
-            // Exécution de la requête
-            $stmt->execute();
+            try{
+                $stmt->bind_param('s', $this->_login);
+            } catch (Exception $e) {
+                echo "failed bind_param";
+                return false;
+            }
+            // Exécution de la requêteÒ
+            try{
+                $stmt->execute();
+            } catch (Exception $e) {
+                echo "failed execute";
+                return false;
+            }
 
-            if (!$stmt)
+            if (!$stmt){
                 throw new Exception("Error: user access in DB failed");
+                return false;
+            }
 
-            $user = $stmt->get_result()->fetch_assoc();
+            try{
+                $user = $stmt->get_result()->fetch_assoc();
+            } catch (Exception $e) {
+                echo "failed get_result";
+                return false;
+            }
 
             // Vérification du mot de passe
             if ($user && $this->_psw === $user['psw']) 
@@ -117,7 +133,7 @@ class User
         }
 
         if ($stmt = $con->prepare('INSERT INTO ' . self::USER_TABLE . ' (login, uname, psw, r_id, email) VALUES (?, ?, ?, ?, ?)')) {
-            $stmt->bind_param("sssss", $this->_login, $this->_uname, password_hash($this->_psw, PASSWORD_DEFAULT), $this->_rid, $this->_email);
+            $stmt->bind_param("sssss", $this->_login, $this->_name, password_hash($this->_psw, PASSWORD_DEFAULT), $this->_rid, $this->_email);
             $stmt->execute();
 
             if (!$stmt) {
@@ -222,6 +238,75 @@ class User
             return true;
         }
 
+        return false;
+    }
+
+    public function updateUserRoleById(){
+        $con = MonSQLi::sqli();
+
+        if (mysqli_connect_errno())
+            return false;
+
+        if ($stmt = $con->prepare('UPDATE ' . self::USER_TABLE . ' SET r_id = ? WHERE login = ?')) {
+            $stmt->bind_param("ss", $this->_rid, $this->_login);
+            $stmt->execute();
+
+            if (!$stmt) {
+                throw new Exception("Error: no user to update");
+                return false;
+            }
+
+            if ($stmt->affected_rows == 0) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function updateEmail(){
+        $con = MonSQLi::sqli();
+
+        if (mysqli_connect_errno())
+            return false;
+
+        if ($stmt = $con->prepare('UPDATE ' . self::USER_TABLE . ' SET email = ? WHERE login = ?')) {
+            $stmt->bind_param("ss", $this->_email, $this->_login);
+            $stmt->execute();
+
+            if (!$stmt) {
+                throw new Exception("Error: no user to update");
+                return false;
+            }
+
+            if ($stmt->affected_rows == 0) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function updateName(){
+        $con = MonSQLi::sqli();
+
+        if (mysqli_connect_errno())
+            return false;
+
+        if ($stmt = $con->prepare('UPDATE ' . self::USER_TABLE . ' SET uname = ? WHERE login = ?')) {
+            $stmt->bind_param("ss", $this->_name, $this->_login);
+            $stmt->execute();
+
+            if (!$stmt) {
+                throw new Exception("Error: no user to update");
+                return false;
+            }
+
+            if ($stmt->affected_rows == 0) {
+                return false;
+            }
+            return true;
+        }
         return false;
     }
 
