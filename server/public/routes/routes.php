@@ -14,6 +14,7 @@ $router->map('GET', '/signout', 'user/signout');
 $router->map('POST', '/authenticate', 'user/authenticate');
 $router->map('POST', '/add-user', 'user/add-user');
 $router->map('POST', '/send-email', 'user/send-email'); //new route for email
+$router->map('POST', '/retrive-password', 'user/retrive-password');
 
 $router->map('POST', '/update-user', 'user/update-user');
 $router->map('POST', '/update-psw', 'user/update-psw');
