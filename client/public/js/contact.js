@@ -8,14 +8,17 @@ const form = document.getElementById('form-contact');
 //inputs
 const civilite = document.getElementById('civilite'); 
 const nom = document.getElementById('nom');
+const email = document.getElementById('email');
 const tel = document.getElementById('telephone');
 const sujet = document.getElementById('sujet');
 const message = document.getElementById('message');
-// le email sera rempli cote serveur
 
 //error messages
 const invalidNom = document.getElementById('invalid-feedback-name');
 invalidNom.style.display='none';
+
+const invalidEmail = document.getElementById('invalid-feedback-email');
+invalidEmail.style.display='none';
 
 const invalidTel = document.getElementById('invalid-feedback-tel');
 invalidTel.style.display='none';
@@ -29,6 +32,7 @@ invalidMessage.style.display='none';
 //boolean pour savoir si on peut envoyer le formulaire
 let isOkForSubmission = false;
 let isNomOk = false;
+let isEmailOk = false;
 let isTelOk = false;
 let isSujetOk = false;
 let isMessageOk = false;
@@ -45,7 +49,7 @@ form.addEventListener('focusin', (e) => {
 
 form.addEventListener('focusout', (e) => {
     if (e.target.id === 'nom') {
-        console.log("nom is : "+nom.value); //test
+        // console.log("nom is : "+nom.value); //test
         if (e.target.value.length == 0) {
             invalidNom.innerHTML= 'Le nom ne peut pas être vide';
             invalidNom.style.display='block'; 
@@ -58,6 +62,24 @@ form.addEventListener('focusout', (e) => {
             return;
         }
         isNomOk = false;
+    }
+    if (e.target.id === 'email') {
+        if (e.target.value.length == 0) {
+            invalidEmail.innerHTML= 'L\'email ne peut pas être vide';
+            invalidEmail.style.display='block'; 
+            email.style.borderBottom = '1px solid red'; 
+        } else if (!e.target.value.includes('@') || !e.target.value.includes('.')) {
+            invalidEmail.innerHTML= 'L\'email doit contenir un @ et un .';
+            invalidEmail.style.display='block'; 
+            email.style.borderBottom = '1px solid red'; 
+        }
+        else{
+            invalidEmail.style.display='none';
+            email.style.borderBottom = '1px solid #45a9d6';
+            isEmailOk = true;
+            return;
+        }
+        isEmailOk = false;
     }
     if (e.target.id === 'telephone') { 
         if (isNaN(e.target.value)) { //pas numerique
@@ -77,7 +99,7 @@ form.addEventListener('focusout', (e) => {
             invalidTel.style.display='none';
             tel.style.borderBottom = '1px solid #45a9d6';
             isTelOk = true;
-            return; // pourquoi un return ici? pour garder isTelOk = true et ne pas le mettre a false en sortant du if
+            return; // return ici pour garder isTelOk = true et ne pas le mettre a false en sortant du if
         }
         isTelOk = false;
     }
@@ -114,33 +136,24 @@ form.addEventListener('focusout', (e) => {
         }
         isMessageOk = false;
     }
-    console.log("end of focusout");
-    console.log("isNomOk focusout: " + isNomOk);
-    console.log("isTelOk focusout: " + isTelOk);
-    console.log("isSujetOk focusout: " + isSujetOk);
-    console.log("isMessageOk focusout: " + isMessageOk);
+    
 });
 
 
 form.addEventListener('submit', (e) => {
     resMessage.style.display='none';
-    console.log("submit");
-    console.log("nom ok?:"+isNomOk);
-    console.log("tel ok?:"+isTelOk);
-    console.log("sujet ok?:"+isSujetOk);
-    console.log("message ok?:"+isMessageOk);
-    console.log("isOkForSubmission?:"+isOkForSubmission);
     
-    if(isNomOk && isTelOk && isSujetOk && isMessageOk){
+    if(isNomOk && isEmailOk && isTelOk && isSujetOk && isMessageOk){
         isOkForSubmission = true;
     }
     if(isOkForSubmission){
         e.preventDefault();
 
         //appelle une fonction async
-        sendingEmail(civilite.value, nom.value, tel.value, sujet.value, message.value, isOkForSubmission); 
+        sendingEmail(civilite.value, nom.value, email.value, tel.value, sujet.value, message.value, isOkForSubmission); 
         isOkForSubmission = false;
         isNomOk = false;
+        isEmailOk = false;
         isTelOk = false;
         isSujetOk = false;
         isMessageOk = false;
@@ -148,28 +161,25 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
 });
 
-// alert(); -----> pop up
-async function sendingEmail(civiliteE, nomE, telE, sujetE, messageE, isOkInstance){ 
-    const sendingEmail = new MAIL_CTRL.RequestEmailSent(civiliteE, nomE, telE, sujetE, messageE); 
+async function sendingEmail(civiliteE, nomE, emailE, telE, sujetE, messageE, isOkInstance){ 
+    const sendingEmail = new MAIL_CTRL.RequestEmailSent(civiliteE, nomE, emailE, telE, sujetE, messageE); 
     const stateSend = await sendingEmail.sendEmail();
 
     if(!isOkInstance){ 
-        console.log("instance non ok");
+        // console.log("instance non ok");
         resMessage.innerHTML = "Veuillez remplir correctement tous les champs";
         resMessage.style.display = "block";
         resMessage.style.color = "red";
         return;
     }
     if(stateSend){
-            // window.location.reload();
-            //au lieu de reload, on vide les champs du formulaire
-            // et on affiche un message de confirmation
             nom.value = "";
+            email.value = "";
             tel.value = "";
             sujet.value = "";
             message.value = "";
 
-            console.log("mail envoyé");
+            // console.log("mail envoyé");
             resMessage.innerHTML = "Votre message a bien été envoyé";
             resMessage.style.display = "block";
             resMessage.style.color = "green";

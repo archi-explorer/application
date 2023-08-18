@@ -1,19 +1,21 @@
 <?php
 
 session_start();
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: X-Requested-With');
+include("./headers.php");
+
+
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    echo json_encode("Not a POST request.");
     exit(1);
 }
 
-// if (empty($_POST['rid'])) {
-//     exit(1);
-// }
+if($_POST['rid'] == null) {
+    echo json_encode("Role id is null. POST request failed.");
+    exit(1);
+}
 
-$_rid = htmlentities($_POST['rid']);
+$_rid = htmlspecialchars($_POST['rid']);
 
 require_once('model/Role.php');
 

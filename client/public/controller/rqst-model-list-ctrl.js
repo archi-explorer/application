@@ -1,144 +1,128 @@
 "use-strict";
 
-const request = "http://archimed-gestion.com/";
+const request = "https://archimed-gestion.com/";
 
 class RequestModelList {
-  // _modelUploader;
-  // _panoUploader;
-  // _csvUploader;
+  _rid; // on cherche les modeles attribués à ce role id
 
-  constructor(modelBtn, modelList, panoBtn, panoList, csvBtn, csvList) {
-    console.log(modelList, panoList, csvList); 
-
-    // this._modelUploader = this.initUploader(modelBtn, modelList);
-    // this._panoUploader = this.initUploader(panoBtn, panoList);
-    // this._csvUploader = this.initUploader(csvBtn, csvList);
+  constructor(rid) {
+    this._rid = rid;
   }
 
   async getModel() {
     try {
-      console.log("on rentre dans le get model (rqst-model-list-ctrl.js)");
-      const req = new Request(`${request}get-model`);
-      const response = await fetch(req);
-      const data = await response.json();
-      console.log("resultat : (rqst-model-list-ctrl.js)" + data);
-      return data;
+      // console.log("on rentre dans le get model (rqst-model-list-ctrl.js)");
+      const allModels = await fetch(
+        `${request}get-model?` +
+          new URLSearchParams({
+            rid: this._rid,
+          })
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .catch((error) => {
+          return error;
+        });
+
+      // console.log(
+      //   "resultat : (rqst-model-list-ctrl.js)" + JSON.stringify(allModels)
+      // );
+      return allModels;
     } catch (error) {
       return [];
     }
   }
 
-  // async addModel(city, role) {
-  //   try {
-  //     console.log("start upload");
+  async addModel(modelName, city, extension) {
+    try {
+      console.log("start upload");
 
-  //     if (!this.verifFolderName()) {
-  //       return false;
-  //     }
+      const req = new Request(`${request}add-model`);
 
-  //     console.log("passed");
+      console.log("nom du model : " + modelName);
 
-  //     console.log(this._modelUploader.files[0].name);
+      const response = await fetch(req, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: `city=${encodeURIComponent(city)}&mname=${encodeURIComponent(
+          modelName
+        )}&extension=${encodeURIComponent(extension)}`,
+      });
 
-  //     try {
-  //       await this.setFolder("model");
-  //       this._modelUploader.start();
-
-  //       await this.setFolder("panoramas");
-  //       this._panoUploader.start();
-
-  //       await this.setFolder("coord");
-  //       this._csvUploader.start();
-  //     } catch (error) {
-  //       console.log(error.message);
-  //       return false;
-  //     }
-
-  //     // Ajout au CSV de la liste
-  //     const name = this._modelUploader.files[0].name.replace(/\.[^/.]+$/, "");
-
-  //     const req = new Request(`${request}add-model`);
-  //     const response = await fetch(req, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-  //       },
-  //       body: `city=${encodeURIComponent(city)}&mname=${encodeURIComponent(
-  //         name
-  //       )}&role=${encodeURIComponent(role)}`,
-  //     });
-
-  //     return true;
-  //     // location.reload();
-  //   } catch (error) {
-  //     console.log(error.message);
-  //     return false;
-  //   }
-  // }
-
-  // initUploader(btn, list) {
-  //   const uploader = new plupload.Uploader({
-  //     runtimes: "html5",
-  //     browse_button: btn,
-  //     url: "https://archi-explorer.com/poc/serv/model_list/upload.php",
-  //     chunk_size: "1mb",
-  //     filters: {
-  //       max_file_size: "1gb",
-  //       mime_types: [{ title: "File", extensions: "zip" }],
-  //     },
-  //     init: {
-  //       PostInit: () => {},
-  //       FilesAdded: (up, files) => {
-  //         plupload.each(files, (file) => {
-  //           let row = document.createElement("div");
-  //           row.id = file.id;
-  //           row.innerHTML = `${file.name} (${plupload.formatSize(
-  //             file.size
-  //           )}) <strong></strong>`;
-  //           list.appendChild(row);
-  //         });
-  //       },
-  //       UploadProgress: (up, file) => {
-  //         document.querySelector(
-  //           `#${file.id} strong`
-  //         ).innerHTML = `${file.percent}%`;
-  //       },
-  //       Error: (up, err) => {
-  //         console.error(err);
-  //       },
-  //     },
-  //   });
-
-  //   uploader.init();
-
-  //   return uploader;
-  // }
-
-  // verifFolderName() {
-  //   const modelName = this._modelUploader.files[0].name.replace(
-  //     /\.[^/.]+$/,
-  //     ""
-  //   );
-  //   const panoName = this._panoUploader.files[0].name.replace(/\.[^/.]+$/, "");
-  //   const csvName = this._csvUploader.files[0].name.replace(/\.[^/.]+$/, "");
-
-  //   if (modelName == panoName && modelName == csvName) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
-  // async setFolder(folder) {
-  //   const req = new Request(`${request}set-folder`);
-  //   const response = await fetch(req, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-  //     },
-  //     body: `folder=${folder}`,
-  //   });
-  // }
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      return false;
+    }
+  }
 }
 
-export { RequestModelList };
+class RequestModelName {
+  _mid;
+
+  constructor(mid) {
+    this._mid = mid;
+  }
+
+  async getModelName() {
+    try {
+      console.log("on rentre dans le get model name (rqst-model-list-ctrl.js)");
+      const modelName = await fetch(
+        `${request}get-model-name?` +
+          new URLSearchParams({
+            mid: this._mid,
+          })
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .catch((error) => {
+          return error;
+        });
+
+      return modelName;
+    } catch (error) {
+      return [];
+    }
+  }
+}
+
+class RequestDeleteModel {
+  _mid;
+
+  constructor(mid) {
+    this._mid = mid;
+  }
+
+  async deleteModel() {
+    try {
+      console.log("on rentre dans le delete model (rqst-model-list-ctrl.js)");
+      const req = new Request(`${request}delete-model`);
+      //post request
+      const deleteModel = await fetch(req, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: `mid=${encodeURIComponent(this._mid)}`,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .catch((error) => {
+          return error;
+        });
+
+      return deleteModel;
+    } catch (error) {
+      return [];
+    }
+  }
+}
+
+export { RequestModelList, RequestModelName, RequestDeleteModel };

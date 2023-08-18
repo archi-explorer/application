@@ -1,46 +1,65 @@
 "use-strict";
 
-// import * as MODEL_LIST from "../controller/rqst-model-list-ctrl.js";
-// import * as MODEL_SET from "../controller/rqst-model-set-ctrl.js";
+import * as MODEL_LIST from "../controller/rqst-model-list-ctrl.js";
+import * as MODEL_SET from "../controller/rqst-model-set-ctrl.js";
 
 // /**
 //  * Récupération des modèles de l'utilisateur connecté
 //  */
 
-// const model = new MODEL_LIST.RequestModelList();
-// const listModel = await model.getModel();
+// getRole du user connecté
+const rid = await fetch(
+  "https://archi-explorer.com/controller/get-role-session.php",
+  {
+    method: "GET",
+  }
+)
+  .then((response) => {
+    return response.json();
+  })
+  .catch((error) => {
+    return error;
+  }); //retourne le role id du user connecté
+//console.log("rid current user : " + rid);
 
-// const list = document.querySelector(".model-list-container");
+const model = new MODEL_LIST.RequestModelList(rid);
+const listModel = await model.getModel();
+
+const list = document.querySelector(".model-list-container");
 // console.log(list);
 
-// let cities = [];
+listModel.forEach((element) => {
+  var listElements = `<li class="model-li" id=${element[3]}/${element[1]}> 
+    <div><p class="model-name" id=${element[0]}>${element[1]}</p></div>
+    <div><p class="model-extension" id=${element[3]}>${element[3]}</p></div>
+    <div><p class="model-city" id=${element[1]}>${element[2]}</p></div> 
+    </li>`;
 
-// listModel.forEach((element) => {
-//   console.log(element);
-
-//   if (cities.includes(element.CITY)) {
-//     document.querySelector(
-//       `.${element.CITY}`
-//     ).innerHTML += `<li class="${element.MNAME}">model : ${element.MNAME}</li>`;
-//   } else {
-//     cities.push(element.CITY);
-
-//     list.innerHTML += `<details class="list" name="${element.CITY}"><summary>--- ${element.CITY} ---</summary><ul class="${element.CITY}"><li class="${element.MNAME}">model: ${element.MNAME}</li></ul></details>`;
-//   }
-// });
+  list.innerHTML += listElements;
+});
 
 // /**
 //  * Selection du modèle à afficher
 //  */
 
-// const modelToLoad = document.querySelectorAll("li");
-// console.log(modelToLoad);
+const modelBlocks = document.querySelectorAll(".model-li");
 
-// modelToLoad.forEach((items) => {
-//   items.addEventListener("click", (e) => {
-//     console.log("model to load");
-//     console.log(e.target.className);
-//     const modelSet = new MODEL_SET.RequestModelSet(e.target.className);
-//     modelSet.setModel();
-//   });
-// });
+modelBlocks.forEach((block) => {
+  block.addEventListener("click", (e) => {
+    // block.id de la forme : extension/modelName
+    let extension = block.id.split("/")[0];
+    let modelName = block.id.split("/")[1];
+    // console.log("model name is : " + modelName);
+    // console.log("extension is : " + extension);
+
+    let model;
+
+    if (extension != "" && modelName != "") {
+      model = new MODEL_SET.RequestModelSet(extension, block.id);
+
+      model.setModel();
+    } else {
+      console.log("error : extension or model name is empty");
+    }
+  });
+});

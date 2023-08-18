@@ -1,11 +1,11 @@
 <?php
 
 session_start();
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: X-Requested-With');
+include("./headers.php");
+
 
 if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+    echo json_encode("Not a GET request.");
     exit(1);
 }
 

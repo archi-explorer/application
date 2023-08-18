@@ -40,8 +40,6 @@ $pageName = "contact";
         <p class="separator"></p>
         <div class="form-contents"> 
             <form id="form-contact" novalidate method="post">
-            <!-- action="./controller/mail-ctrl.php" -->
-            <!-- MAINENANT appelé par contact.js -->
                 <div class="form-civ">
                 <label for="civilite">Civilité</label>
                 <select name="civilite" id="civilite">
@@ -51,24 +49,29 @@ $pageName = "contact";
                 </select>
                 </div>
                 <div class="form-name">
-                <label for="nom">Nom</label>
-                <input type="text" name="nom" class="inpform" id="nom" placeholder="Exemple : Dailly">
-                <div class="invalid-message" id="invalid-feedback-name">ERROR NOM</div>
+                    <label for="nom">Nom</label>
+                    <input type="text" name="nom" class="inp-form" id="nom" placeholder="Exemple : Dailly">
+                    <div class="invalid-message" id="invalid-feedback-name">ERROR NOM</div>
+                </div>
+                <div class="form-email">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="inp-form" id="email" placeholder="Exemple : contact@archimed-ge.com">
+                    <div class="invalid-message" id="invalid-feedback-email">ERROR EMAIL
                 </div>
                 <div class="form-tel">
-                <label for="telephone">Téléphone</label>
-                <input type="tel" name="telephone" class="inp-form" id="telephone" placeholder="Exemple : 0711111111"> 
-                <div class="invalid-message" id="invalid-feedback-tel">ERROR TEL</div>
+                    <label for="telephone">Téléphone</label>
+                    <input type="tel" name="telephone" class="inp-form" id="telephone" placeholder="Exemple : 0711111111"> 
+                    <div class="invalid-message" id="invalid-feedback-tel">ERROR TEL</div>
                 </div>
                 <div class="form-subject">
-                <label for="sujet">Sujet</label>
-                <input type="text" name="sujet" id="sujet" class="inp-form" placeholder="Exemple : Problème d'affichage">
-                <div class="invalid-message" id="invalid-feedback-sujet">ERROR SUJET</div>
+                    <label for="sujet">Sujet</label>
+                    <input type="text" name="sujet" id="sujet" class="inp-form" placeholder="Exemple : Problème d'affichage">
+                    <div class="invalid-message" id="invalid-feedback-sujet">ERROR SUJET</div>
                 </div>
                 <div class="form-message">
-                <label for="message">Message</label>
-                <textarea name="message" class="inp-form" id="message" cols="30" rows="10" placeholder="Écrivez ici votre message..."></textarea>
-                <div class="invalid-message" id="invalid-feedback-message">ERROR MESSAGE</div>
+                    <label for="message">Message</label>
+                    <textarea name="message" class="inp-form" id="message" cols="30" rows="10" placeholder="Écrivez ici votre message..."></textarea>
+                    <div class="invalid-message" id="invalid-feedback-message">ERROR MESSAGE</div>
                 </div>
                 <div>
                 <input type="submit" value="Envoyer">

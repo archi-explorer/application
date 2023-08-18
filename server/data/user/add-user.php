@@ -1,21 +1,15 @@
 <?php
 
 session_start();
-
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: X-Requested-With');
-
-// if ($_SESSION['role'] != "admin")
-//     exit(1);
+include("./headers.php");
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
     exit(1);
 
-if (empty($_POST['uname']) || empty($_POST['psw'] || empty($_POST['role']) || empty($_POST['email'])))
+if (empty($_POST['login']) || empty($_POST['uname']) || empty($_POST['psw'] || empty($_POST['role']) || empty($_POST['email'])))
     exit(1);
 
-$login = htmlspecialchars($_POST['uname']);
+$login = htmlspecialchars($_POST['login']);
 $uname = htmlspecialchars($_POST['uname']);
 $psw = htmlspecialchars($_POST['psw']);
 $role = htmlspecialchars($_POST['role']);
@@ -35,5 +29,5 @@ try {
 } catch (PDOException $e) {
     echo ("pdo" . $e->getMessage());
 } catch (Exception $e) {
-    echo ("exception" .$e->getMessage());
+    echo ("exception" . $e->getMessage());
 }

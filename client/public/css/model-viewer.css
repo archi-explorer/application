@@ -18,13 +18,6 @@ body {
   z-index: -100;
 }
 
-/*
-h1 {
-	background-color: transparent;
-	margin: 0 0 0 0 ;
-	padding: 10px 0 0 0; 
-}*/
-
 .guiContainer {
   position: absolute;
   top: 20%;
@@ -80,21 +73,21 @@ h1 {
 .navigationMode {
   height: 50px;
   width: 50px;
-  background-image: url("./images/tools/VueDollhouse.png"); /*Insertion de l'image sur le fond de la zone*/
+  background-image: url("../images/tools/VueDollhouse.png"); /*Insertion de l'image sur le fond de la zone*/
   background-size: 90%; /*Apparence du curseur lors du survol de l'icône avec la souris*/
 }
 
 .overView {
   height: 50px;
   width: 50px;
-  background-image: url("./images/tools/VueDessus.png");
+  background-image: url("../images/tools/VueDessus.png");
   background-size: 130%;
 }
 
 .mesure {
   height: 50px;
   width: 50px;
-  background-image: url("./images/tools/ModeMesure.png");
+  background-image: url("../images/tools/ModeMesure.png");
   background-size: 110%;
 }
 
@@ -107,14 +100,14 @@ h1 {
 .virtualVisit {
   height: 50px;
   width: 50px;
-  background-image: url("./images/tools/ModeVisiteVirtuelle.png");
+  background-image: url("../images/tools/ModeVisiteVirtuelle.png");
   background-size: 140%;
 }
 
 .fullScreen {
   height: 50px;
   width: 50px;
-  background-image: url("./images/tools/PleinEcran.png");
+  background-image: url("../images/tools/PleinEcran.png");
   background-size: 130%;
 }
 

@@ -4,48 +4,47 @@
  * Module de gestion des requêtes à l'API NodeJs
  */
 
-const request = "http://archimed-sky.com/";
-
-// const modelName = getModelName();
+const request = "https://archimed-gestion.com/";
 
 class RequestAPI {
   _data;
   _coord;
   _pano;
   _names;
-  _mName;
 
-  _continu;
+  _path; // sets the path to the model directory
 
-  constructor() {
-    this._continu = false;
+  constructor(path) {
+    this._path = path;
   }
 
   /**
    * Initialisation du init
    */
   async init() {
-    this._data = await this.dataSetting();
-    console.log(this._data);
+    this._data = await this.dataSetting(this._path);
+    // console.log(this._data);
 
     this._coord = initCoord(this._data);
     this._pano = initPano(this._data);
     this._names = initNames(this._data);
-    this._mName = initMname(this._data);
-
-    this._continu = true;
   }
 
   /**
    * Récupération des données pour l'application
    * @returns
    */
-  async dataSetting() {
+  async dataSetting(path) {
     try {
-      const req = new Request(request);
-      const response = await fetch(req);
-      const data = await response.json();
-      console.log(data);
+      const req = await fetch(
+        `./controller/data-setting.php?` +
+          new URLSearchParams({
+            path: path,
+          })
+      ); // accès au fichier de configuration
+      const data = await req.json();
+
+      // console.log(data);
       return data;
     } catch (error) {
       return error.message;
@@ -53,7 +52,7 @@ class RequestAPI {
   }
 
   /**
-   * Tout les getter des données
+   * Tous les getters de données
    */
   getCoord() {
     return this._coord;
@@ -63,13 +62,6 @@ class RequestAPI {
   }
   getModelNames() {
     return this._names;
-  }
-  getMname() {
-    return this._mName;
-  }
-
-  getContinu() {
-    return this._continu;
   }
 }
 
@@ -108,7 +100,6 @@ function initCoord(_data) {
     list.listYSuivant.push(parseFloat(_data.coord[i].Z) * 0);
     list.listZSuivant.push(parseFloat(_data.coord[i].Y) * 0);
   }
-
   return list;
 }
 
@@ -132,14 +123,6 @@ function initNames(_data) {
   }
 
   return _data.modelNames;
-}
-
-function initMname(_data) {
-  if (!_data.mName) {
-    return null;
-  }
-
-  return _data.mName;
 }
 
 /**

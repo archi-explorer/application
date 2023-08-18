@@ -1,17 +1,15 @@
 <?php
 
 session_start();
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: X-Requested-With');
-
-// if ($_SESSION['role'] != "admin")
-//     exit(1);
+include("./headers.php");
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
-    echo ("meth");
+    exit(1);
 
-$login = htmlspecialchars($_POST['uname']);
+if(!isset($_POST['login']) || !isset($_POST['newPsw']))
+    exit(1);
+
+$login = htmlspecialchars($_POST['login']);
 $nPsw = htmlspecialchars($_POST['newPsw']);
 
 require_once('model/User.php');

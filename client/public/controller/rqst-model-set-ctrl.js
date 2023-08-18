@@ -4,29 +4,38 @@
  * Module d'initialisation du modèle à afficher
  */
 
-const request = "http://archimed-sky.com/";
+const request = "https://archi-explorer.com/";
 
 class RequestModelSet {
-  _model;
+  _modelURL;
+  _extension;
 
-  constructor(model) {
-    this._model = model;
+  constructor(extension, modelURL) {
+    this._modelURL = modelURL;
+    this._extension = extension;
   }
 
   async setModel() {
     try {
-      const req = new Request(`${request}set-model`);
+      const req = new Request(`${request}controller/set-model-viewer.php`);
       const response = await fetch(req, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
-        body: `model=${encodeURIComponent(this._model)}`,
+        body: `modelURL=${encodeURIComponent(this._modelURL)}`,
       });
+      const data = await response.json();
+      // console.log(data);
 
-      window.location.assign(
-        "https://archi-explorer.com/poc/client/src/model_view.php"
-      );
+      if (this._extension == "fbx" || this._extension == "obj-mtl") {
+        window.location.assign(`${request}model-viewer`);
+      } else {
+        console.log("ERROR : extension not found (in rqst-model-set-ctrl.js)");
+        return false;
+      }
+
+      return true;
     } catch (error) {
       console.log(error);
       return false;
