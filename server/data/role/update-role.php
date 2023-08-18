@@ -1,16 +1,21 @@
 <?php
 
 session_start();
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: X-Requested-With');
+include("./headers.php");
+
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    echo json_encode("Not a POST request.");
     exit(1);
 }
 
-$_rid = htmlentities($_POST['rid']);
-$new_rname = htmlentities($_POST['new_rname']);
+if($_POST['rid'] == null || $_POST['new_rname'] == null) {
+    echo json_encode("Role id or new role name is null. POST request failed.");
+    exit(1);
+}
+
+$_rid = htmlspecialchars($_POST['rid']);
+$new_rname = htmlspecialchars($_POST['new_rname']);
 
 require_once('model/Role.php');
 

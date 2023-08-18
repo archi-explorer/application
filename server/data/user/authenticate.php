@@ -1,10 +1,8 @@
 <?php
 
 session_start();
+include("./headers.php");
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: X-Requested-With');
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     exit(1);
@@ -19,7 +17,7 @@ $psw = htmlspecialchars($_POST['psw']);
 
 require_once('model/User.php');
 
-$user = new User($login, "", $psw, null, "");
+$user = new User($login, "", $psw, "", "");
 
 try {
     if (!$rid = $user->exists()) {
@@ -27,16 +25,9 @@ try {
         exit(1);
     }
 
-    $res = array('status' => true, 'user' => $login);
+    $uname = $user->getUname();
 
-    $_SESSION['user'] = $login;
-
-    if ($email = $user->getEmailFromId()) {
-        // echo 'Email in auth: ' . ($email) . '</br>';
-        $res += ['email' => $email];
-
-        $_SESSION['email'] = $email;
-    }
+    $res = array('status' => true, 'user' => $login, 'uname' => $uname, 'rid' => $rid);
 
     try {
         require_once('model/Role.php');
@@ -44,7 +35,6 @@ try {
         $role = new Role($rid);
 
         if ($rname = $role->getRoleName()) {
-            $_SESSION['role'] = $rname['rname'];
             $res += ['role' => $rname['rname']];
         }
     } catch (Exception $e) {

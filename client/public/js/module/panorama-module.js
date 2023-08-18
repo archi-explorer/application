@@ -4,9 +4,8 @@
 import * as THREE from "../../imports/three/build/three.module.js";
 
 import {
-  modeVirtualVisit,
+  //modeVirtualVisit,
   controlsUpdate,
-  mouseMoove,
   initVirtualVisit,
 } from "../model-viewer.js";
 
@@ -17,6 +16,7 @@ class Pano {
   _scene; // => scène pour l'affichage
   _list; // => liste des coodronnées des panoramas dans le modèle
   _texture; // => liste des panoramas
+  _renderer; // => rendu du modèle
 
   _mesh;
   _raycasterPanorama;
@@ -32,10 +32,12 @@ class Pano {
   _activePano;
   _panoNames;
 
-  constructor(scene, list, texture, cam, mouse) {
+
+  constructor(scene, list, texture, cam, mouse, renderer) {
     this._scene = scene;
     this._list = list;
     this._texture = texture;
+    this._renderer = renderer;
 
     this._mouse = mouse;
     this._cam = cam;
@@ -54,6 +56,19 @@ class Pano {
     this.setPickablePreviousMesh();
     this.setPickableNextMesh();
   }
+
+
+  /**
+   * Tracage des mouvements de la souris
+   */
+  mouseMoove(e, renderer) {
+    const mouse = { x: 0, y: 0 };
+
+    mouse.x = (e.clientX / renderer.domElement.clientWidth) * 2 - 1;
+    mouse.y = -(e.clientY / renderer.domElement.clientHeight) * 2 + 1;
+    return mouse;
+  }
+  
 
   /**
    * Fonction d'initialisation de toutes les figures 3D du modèle
@@ -151,7 +166,7 @@ class Pano {
   panoDisplay(e) {
     console.log("mode pano");
 
-    this._mouse = mouseMoove(e);
+    this._mouse = this.mouseMoove(e, this._renderer);
     this._raycasterPanorama.setFromCamera(this._mouse, this._cam);
     this._intersects = this._raycasterPanorama.intersectObjects(
       this.pickableObjects,
@@ -207,7 +222,8 @@ class Pano {
     }
 
     // Fonction importé de mise à jour du panorama
-    controlsUpdate(-0.25, false, false, true);
+    // on envoie "null" car on ne compte pas avec "controls" dans ce script
+    controlsUpdate(-0.25, false, false, true, null);
 
     const previousMeshRaycaster = new THREE.Raycaster();
     const nextMeshRaycaster = new THREE.Raycaster();

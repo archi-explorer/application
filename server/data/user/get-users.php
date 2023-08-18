@@ -1,14 +1,13 @@
 <?php
 
 session_start();
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: X-Requested-With');
 
-// if ($_SESSION['role'] != 'admin') {
-//     printf("role");
-//     exit(1);
-// }
+include("./headers.php");
+
+
+if($_SERVER['REQUEST_METHOD'] != 'GET') {
+    exit(1);
+}
 
 require_once('model/User.php');
 

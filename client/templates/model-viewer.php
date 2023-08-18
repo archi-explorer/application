@@ -2,7 +2,7 @@
 session_start();
 
 if (empty($_SESSION['user'])) {
-    header('Location: login.php');
+    header('Location: login');
     exit();
 }
 
@@ -23,7 +23,7 @@ $pageName = "model-viewer";
         <a class="fullScreen"> </a>
     </div>
 
-    <a href="" class="closeMesure">X</a>
+    <a role="button" class="closeMesure">X</a>
     <button type="button" class="clearMesure">Effacer</button>
 
     <div class="helpLink">
@@ -42,7 +42,7 @@ $pageName = "model-viewer";
                     <img src="./images/img_helper/IconeZoompageAide.png" alt="Zoom" />
                 </section>
                 <section class="bottomLeft">
-                    <img src=./images/img_helper/IconePleinEcranPageAide.png" alt="Plein écran" />
+                    <img src="./images/img_helper/IconePleinEcranPageAide.png" alt="Plein écran" />
                 </section>
             </div>
             <div class="rightColumn">
@@ -64,4 +64,11 @@ $pageName = "model-viewer";
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="loader">
+    <video width="500px" height="500px" autoplay loop muted class="videoLoader">
+        <source src="./videos/loader.mp4" type="video/mp4" />
+    </video>
 </div>

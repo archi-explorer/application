@@ -33,9 +33,31 @@
   margin: 10px;
 }
 
-.model-list-container p {
+.model-list-container li {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.model-list-container li:not(:first-child) {
+  width: 90%;
+}
+
+.model-list-container li:not(:first-child):hover{
+  background-color: #4dc1ed;
+  border-radius: 1px solid #4dafff;
+  cursor: pointer;
+}
+
+
+.model-list-container li div {  
   width: 50%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.model-list-container p {
   margin: 10px;
   font-size: large;
 }

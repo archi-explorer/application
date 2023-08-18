@@ -1,7 +1,12 @@
 <?php
 session_start();
 
-if (empty($_SESSION["user"])) {
+if ($_SESSION['role'] === "admin") {
+    header('Location: admin');
+    exit();
+}
+
+if (empty($_SESSION['uname'])) {
     header('Location: login');
     exit();
 }

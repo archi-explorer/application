@@ -2,7 +2,7 @@
 session_start();
 
 if (empty($_SESSION['user'])) {
-    header('Location: login.php');
+    header('Location: login');
     exit();
 }
 
@@ -16,7 +16,19 @@ $pageName = "model-chooser";
 <div class="container">
     <div class="model-container">
         <div class="model-list-container">
-            <p>--- VILLE ---</p>
+            <ul class="model">
+                <li>
+                    <div>
+                        <p>--- NOM ---</p>
+                    </div>
+                    <div>
+                        <p>--- TYPE ---</p>
+                    </div>
+                    <div>
+                        <p>--- VILLE ---</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
